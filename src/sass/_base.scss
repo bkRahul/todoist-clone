@@ -2,29 +2,16 @@
 ------------Font------------------
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap");
 
 /*
 ------------Variables------------------
 */
 
-@import './variables';
+@import "./variables";
 
 /*
 ------------Mixins------------------
 */
 
-@import './mixins';
-
-/*
-------------Darkmode------------------
-*/
-
-.darkmode {
-  header {
-    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
-    background-color: #282828;
-    border-color: transparent;
-  }
-}
+@import "./mixins";
