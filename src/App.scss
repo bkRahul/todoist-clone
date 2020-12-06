@@ -1,5 +1,16 @@
 @import "../src/sass/base";
 
+/* Darkmode
+  ============================================ */
+.darkmode {
+  header {
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    background-color: #282828;
+    border-color: transparent;
+  }
+}
+
 /* Header
         ============================================ */
 header {
@@ -107,18 +118,19 @@ header {
         ============================================ */
 .sidebar {
   @include no-select();
+  padding-left: 28px;
   width: 266px;
   height: calc(100vh);
   padding-top: 74px;
   position: fixed;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: scroll;
   border-right: $generic-border;
   background-color: #fafafa;
 
-  @include mq("900px") {
-    display: none;
-  }
+  // @include mq("900px") {
+  //   display: none;
+  // }
 
   li {
     font-weight: 500;
@@ -227,9 +239,9 @@ header {
       display: -ms-flexbox;
       display: flex;
       cursor: pointer;
-      line-height: 1.5;
+      line-height: 1;
       font-size: 15px;
-      padding: 10px 0 10px 15px;
+      padding: 8px 0 8px 15px;
 
       span {
         margin-right: 10px;
@@ -328,10 +340,10 @@ header {
   padding-top: 80px;
   padding-bottom: 84px;
 
-  @include mq("900px") {
-    margin-left: 0;
-    width: auto;
-  }
+  // @include mq("900px") {
+  //   margin-left: 0;
+  //   width: auto;
+  // }
 
   h2 {
     font-size: 20px;
@@ -503,7 +515,10 @@ header {
 
   &__list li {
     @include task-item();
-    padding: 0;
+
+    span {
+      margin-right: 10px;
+    }
 
     div:nth-child(1) {
       padding: 10px;
@@ -539,7 +554,6 @@ header {
 
   &__list li {
     @include task-item();
-    padding: 0;
 
     div:nth-child(1) {
       width: 100%;

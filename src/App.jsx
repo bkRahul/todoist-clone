@@ -1,10 +1,10 @@
 import React from "react";
-import { useEffect } from "react";
 import "./App.scss";
 import { Content } from "./components/layout/Content/Content";
 import { Header } from "./components/layout/Header/Header";
 import { ProjectsProvider, SelectedProjectProvider } from "./context";
-import { addCollectionsAndDocs } from "./helpers/firebase";
+import { useLocalStorage } from "./hooks/useLocalStorage/localStorage";
+//import { addCollectionsAndDocs } from "./helpers/firebase";
 
 // const projectData = [
 //   {
@@ -45,13 +45,19 @@ export const App = () => {
   //     }))
   //   );
   // }, []);
+
+  const [darkMode, setDarkMode] = useLocalStorage("darkmode", false);
+
   return (
     <ProjectsProvider>
       <SelectedProjectProvider>
-        <div>
-          <Header />
+        <main
+          data-testid='application'
+          className={darkMode ? "darkmode" : undefined}
+        >
+          <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Content />
-        </div>
+        </main>
       </SelectedProjectProvider>
     </ProjectsProvider>
   );
