@@ -1,0 +1,43 @@
+@import '../../sass/base';
+
+.custom-dropdown {
+  position: relative;
+
+  button {
+    background: transparent;
+    border: none;
+  }
+
+  ul {
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.1) 0px 4px 11px;
+    position: absolute;
+    list-style: none;
+    right: 100%;
+    width: 200px;
+
+    li {
+      display: flex;
+      line-height: 18px;
+      color: #333;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 14px;
+      list-style-type: none;
+      border-bottom: 1px solid #f0f0f0;
+      padding-left: 10px;
+      cursor: pointer;
+      &:hover {
+        background-color: #f9f9f9;
+      }
+
+      button {
+        font-size: unset;
+        color: unset;
+        background: transparent;
+        border: none;
+      }
+    }
+  }
+}
