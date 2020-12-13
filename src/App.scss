@@ -20,7 +20,7 @@ header {
   transition: height 200ms ease-in;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  height: 44px;
+  height: 50px;
   z-index: 400;
   position: fixed;
   top: 0;
@@ -41,7 +41,7 @@ header {
     grid-row-gap: 0px;
     max-width: 922px;
     margin: auto;
-    height: 44px;
+    height: 50px;
 
     p,
     li {
@@ -84,23 +84,24 @@ header {
 
           &.settings__add {
             margin-right: 15px;
-            font-size: 30px;
 
             button {
+              width: 100%;
               @include transparent-button();
               color: white;
-              cursor: pointer;
             }
           }
 
           &.settings__darkmode {
             button {
+              width: 100%;
               @include transparent-button();
               color: white;
-              cursor: pointer;
               display: -webkit-box;
               display: -ms-flexbox;
               display: flex;
+              align-items: center;
+              justify-content: center;
 
               svg {
                 width: 20px;
@@ -137,15 +138,13 @@ header {
     font-size: 14px;
     padding: 5px 10px 0px 4px;
     &:hover .sidebar__project-delete {
-      // display: -webkit-box;
-      // display: -ms-flexbox;
-      // display: flex;
       visibility: visible;
     }
   }
 
   &__project {
-    button {
+    .sidebar__project--single {
+      outline: none;
       display: flex;
       align-items: center;
       justify-content: left;
@@ -171,7 +170,7 @@ header {
     }
 
     &.active {
-      button {
+      .sidebar__project--single {
         font-weight: bold;
         background-color: white;
       }
@@ -322,7 +321,7 @@ header {
     }
 
     button {
-      @include btn('50px');
+      @include btn(100px);
     }
     span {
       @include cancel();
@@ -413,56 +412,59 @@ header {
 
 /* Add Task
         ============================================ */
-.add-task {
+.task-overlay {
+  background: rgba(102, 102, 102, 0.5);
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
+  height: calc(100vh);
+}
+
+.add-task-container {
   &__overlay {
-    background: rgba(102, 102, 102, 0.5);
-    position: absolute;
-    margin: auto;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2000;
-    -webkit-transition: opacity 0.2s ease-in;
-    transition: opacity 0.2s ease-in;
-    height: calc(100vh);
-
-    .add-task__main {
-      @include mq('900px') {
-        width: 90%;
-      }
-
-      overflow: visible;
-      margin-bottom: 20px;
-      margin-top: 55px;
-      border-radius: 5px;
-      background-color: white;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      padding: 20px 30px;
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-
-      .header {
-        font-size: 13px;
-        margin-bottom: 20px;
-        float: left;
-      }
-    }
-
-    .add-task__cancel-x {
-      cursor: pointer;
-      color: gray;
-      float: right;
-      font-weight: bold;
-      font-size: 12px;
-      margin-top: 10px;
-    }
+    position: relative;
+    height: 100vh;
+  }
+}
+.add-task {
+  &__header {
+    @extend %d-flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 22px;
   }
 
   &__main {
     position: relative;
+  }
+
+  &__overlay {
+    width: 50%;
+    overflow: visible;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding: 20px 30px;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    .add-task__cancel-x button {
+      background: transparent;
+      border: none;
+      color: gray;
+      font-size: 16px;
+    }
+  }
+  @include mq('900px') {
+    width: 90%;
   }
 
   &__project,
@@ -497,15 +499,32 @@ header {
   }
 
   &__submit {
-    @include btn('90px');
+    @include btn(90px);
+  }
+
+  &__actions {
+    @extend %d-flex;
+    justify-content: space-between;
+  }
+
+  &__details {
+    @extend %d-flex;
+  }
+
+  &__icon {
+    button {
+      font-size: 20px;
+      color: #db4c3f;
+    }
   }
 }
 
-.add-task__shallow,
-.add-project {
+.add-task__shallow {
+  display: flex;
+  align-items: center;
   @include no-select;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin: 20px 0 10px 0;
 }
 
 .add-task__plus,
@@ -574,7 +593,7 @@ header {
 
     div:nth-child(1) {
       width: 100%;
-      padding: 10px;
+      padding: 0 4px;
     }
   }
 }
@@ -582,12 +601,17 @@ header {
 /* Add Project
         ============================================ */
 .add-project {
+  cursor: pointer;
   padding-left: 13px;
   padding-right: 20px;
   margin-top: 20px;
 
   &__input {
     margin-bottom: 20px;
+
+    input {
+      margin-bottom: 10px;
+    }
   }
 
   &__name {

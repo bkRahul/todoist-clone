@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPizzaSlice } from 'react-icons/fa';
+import { FaMoon, FaSun, FaPlus } from 'react-icons/fa';
 import logo from '../../../assets/images/logo.png';
 import { AddTask } from '../../Tasks/AddTask/AddTask';
 
@@ -16,22 +16,25 @@ export const Header = ({ darkMode, setDarkMode }) => {
           </div>
           <div className="settings">
             <ul>
-              <li
-                data-testid="quick-add-task-action"
-                className="settings__add"
-                onClick={() => {
-                  setShowMain(true);
-                  setShowQuickAddTask(true);
-                }}
-              >
-                +
+              <li data-testid="quick-add-task-action" className="settings__add">
+                <button
+                  tabIndex={0}
+                  onClick={() => {
+                    setShowMain(true);
+                    setShowQuickAddTask(true);
+                  }}
+                  onKeyDown={() => {
+                    setShowMain(true);
+                    setShowQuickAddTask(true);
+                  }}
+                >
+                  <FaPlus />
+                </button>
               </li>
-              <li
-                data-testid="dark-mode-action"
-                className="settings__darkmode"
-                onClick={() => setDarkMode(!darkMode)}
-              >
-                <FaPizzaSlice />
+              <li data-testid="dark-mode-action" className="settings__darkmode">
+                <button tabIndex={0} onClick={() => setDarkMode(!darkMode)}>
+                  {darkMode ? <FaSun /> : <FaMoon />}
+                </button>
               </li>
             </ul>
           </div>

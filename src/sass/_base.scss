@@ -2,16 +2,28 @@
 ------------Font------------------
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
 
 /*
 ------------Variables------------------
 */
 
-@import "./variables";
+@import './variables';
 
 /*
 ------------Mixins------------------
 */
 
-@import "./mixins";
+@import './mixins';
+
+/*
+------------Placeholders------------------
+*/
+
+@import './placeholders';
+
+/*
+------------Global------------------
+*/
+
+@import './global';
