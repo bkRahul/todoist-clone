@@ -1,11 +1,11 @@
-import React from "react";
-import { useEffect } from "react";
-import { collatedTasks } from "../../constants";
-import { useProjectsValue, useSelectedProjectValue } from "../../context";
-import { collatedTasksExist, getCollatedTitle, getTitle } from "../../helpers";
-import { useTasks } from "../../hooks/useTasks/tasks";
-import { Checkbox } from "../Checkbox/Checkbox";
-import { AddTask } from "./AddTask/AddTask";
+import React from 'react';
+import { useEffect } from 'react';
+import { collatedTasks } from '../../constants';
+import { useProjectsValue, useSelectedProjectValue } from '../../context';
+import { collatedTasksExist, getCollatedTitle, getTitle } from '../../helpers';
+import { useTasks } from '../../hooks/useTasks/tasks';
+import { Checkbox } from '../Checkbox/Checkbox';
+import { AddTask } from './AddTask/AddTask';
 
 export const Tasks = () => {
   //get all the projects
@@ -13,7 +13,7 @@ export const Tasks = () => {
   //get selected Project Id
   const { selectedProject } = useSelectedProjectValue();
   const { tasks } = useTasks(selectedProject);
-  let projectName = "";
+  let projectName = '';
 
   // console.log("tasks===", tasks);
   // console.log("projects===", projects);
@@ -45,7 +45,7 @@ export const Tasks = () => {
       <ul className="tasks__list">
         {tasks.map(({ id, task }) => (
           <li key={id}>
-            <Checkbox id={id} />
+            <Checkbox id={id} task={task} />
             <span>{task}</span>
           </li>
         ))}

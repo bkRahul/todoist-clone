@@ -22,7 +22,7 @@ export const Projects = ({ activeValue = null }) => {
         }
       >
         <button
-          tabIndex={0}
+          className="sidebar__project--single"
           onKeyDown={() => {
             setActive(project.projectId);
             setSelectedProject(project.projectId);
@@ -31,6 +31,7 @@ export const Projects = ({ activeValue = null }) => {
             setActive(project.projectId);
             setSelectedProject(project.projectId);
           }}
+          tabIndex={0}
         >
           <Project project={project} />
         </button>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { useSelectedProjectValue } from '../../../context';
-import { useProjectsValue } from '../../../context';
+import { useSelectedProjectValue, useProjectsValue } from '../../../context';
 import { firebase } from '../../../firebase';
 import { FaRegCalendarAlt, FaRegListAlt, FaTimes } from 'react-icons/fa';
 import { TaskDateOverlay } from '../../Projects/TaskDateOverlay/TaskDateOverlay';
@@ -83,7 +82,7 @@ export const AddTask = ({
       {(showMain || showQuickAddTask) && (
         <div
           className={showQuickAddTask ? 'add-task__overlay' : 'add-task__main'}
-          data-testid="add-task-main"
+          data-testid="add-task"
         >
           {showQuickAddTask && (
             <>
@@ -123,7 +122,7 @@ export const AddTask = ({
               <button
                 type="button"
                 className="add-task__submit"
-                data-testid="add-task"
+                data-testid="add-task-button"
                 onClick={() =>
                   showQuickAddTask
                     ? addTask() && setShowQuickAddTask(false)

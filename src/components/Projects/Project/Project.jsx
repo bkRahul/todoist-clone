@@ -1,8 +1,8 @@
-import React from "react";
-import { firebase } from "../../../firebase";
-import { useState } from "react";
-import { useProjectsValue, useSelectedProjectValue } from "../../../context";
-import { FaTrashAlt } from "react-icons/fa";
+import React from 'react';
+import { firebase } from '../../../firebase';
+import { useState } from 'react';
+import { useProjectsValue, useSelectedProjectValue } from '../../../context';
+import { FaTrashAlt } from 'react-icons/fa';
 
 export const Project = ({ project }) => {
   const [showConfirm, setShowConfirm] = useState(false);
@@ -12,12 +12,12 @@ export const Project = ({ project }) => {
   const deleteProject = (docID) => {
     firebase
       .firestore()
-      .collection("projects")
+      .collection('projects')
       .doc(docID)
       .delete()
       .then(() => {
         setProjects([...projects]);
-        setSelectedProject("INBOX");
+        setSelectedProject('INBOX');
       });
   };
   //  console.log({ project });
@@ -29,16 +29,26 @@ export const Project = ({ project }) => {
         className="sidebar__project-delete"
         data-testid="delete-project"
         onClick={() => setShowConfirm(!showConfirm)}
+        onKeyDown={() => setShowConfirm(!showConfirm)}
+        tabIndex={0}
+        role="button"
       >
         <FaTrashAlt />
         {showConfirm && (
           <div className="project-delete-modal">
             <div className="project-delete-modal__inner">
               <p>Are you sure you want to delete the project ?</p>
-              <button onClick={() => deleteProject(project.docId)}>
+              <button onClick={() => deleteProject(project.docId)} tabIndex={0}>
                 Delete
               </button>
-              <span onClick={() => setShowConfirm(!showConfirm)}>Cancel</span>
+              <span
+                onClick={() => setShowConfirm(!showConfirm)}
+                onKeyDown={() => setShowConfirm(!showConfirm)}
+                tabIndex={0}
+                role="button"
+              >
+                Cancel
+              </span>
             </div>
           </div>
         )}
