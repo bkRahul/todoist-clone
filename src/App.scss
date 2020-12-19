@@ -125,7 +125,7 @@ header {
   padding-top: 74px;
   position: fixed;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-right: $generic-border;
   background-color: #fafafa;
 
@@ -136,7 +136,7 @@ header {
   li {
     font-weight: 500;
     font-size: 14px;
-    padding: 5px 10px 0px 4px;
+    padding: 5px 0px 0px 10px;
     &:hover .sidebar__project-delete {
       visibility: visible;
     }
@@ -162,6 +162,7 @@ header {
 
     &-delete {
       margin-left: auto;
+      margin-right: 15px;
       visibility: hidden;
 
       svg {
@@ -170,6 +171,8 @@ header {
     }
 
     &.active {
+      background-color: white;
+
       .sidebar__project--single {
         font-weight: bold;
         background-color: white;
@@ -345,7 +348,6 @@ header {
 /* Tasks
         ============================================ */
 .tasks {
-  width: 656px;
   background-color: white;
   margin-left: 266px;
   border-right: $generic-border;
