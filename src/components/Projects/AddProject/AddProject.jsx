@@ -7,7 +7,7 @@ import { generatePushId } from "../../../helpers";
 export const AddProject = ({ shouldShow = false }) => {
   const [show, setShow] = useState(shouldShow);
   const [projectName, setProjectName] = useState("");
-  const { setProjects } = useProjectsValue();
+  const {projects, setProjects } = useProjectsValue();
   const projectId = generatePushId();
 
   const addProject = () => {
@@ -22,7 +22,7 @@ export const AddProject = ({ shouldShow = false }) => {
         })
         .then(function (docRef) {
           //console.log("Document written with ID: ", docRef.id);
-          setProjects([]);
+          setProjects([...projects]);
           setProjectName("");
           setShow(false);
         })
