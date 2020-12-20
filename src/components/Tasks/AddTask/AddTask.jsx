@@ -25,7 +25,7 @@ export const AddTask = ({
     const projectId = project || selectedProject;
     if (projectId === 'TODAY') {
       collatedDate = moment().format('DD/MM/YYYY');
-    } else if (projectId === 'NEXT_&_DAYS') {
+    } else if (projectId === 'NEXT_7_DAYS') {
       collatedDate = moment().add(7, 'days').format('DD/MM/YYYY');
     }
     return (
@@ -63,16 +63,17 @@ export const AddTask = ({
         className={showQuickAddTask ? 'task-overlay' : undefined}
         data-testid="add-task-comp"
         onClick={() => {
-          if (showQuickAddTask) {
-            setShowMain(false);
-            setShowQuickAddTask(false);
-          }
+          showQuickAddTask && setShowMain(false);
+          setShowQuickAddTask(false);
+
+          // if (showQuickAddTask) {
+          // }
         }}
       ></div>
       {showAddTaskMain && (
         <div
           className="add-task__shallow"
-          data-testid="show-main-action"
+          data-testid="show-main-add-task"
           onClick={() => setShowMain(!showMain)}
         >
           <span className="add-task__plus">+</span>
@@ -88,11 +89,9 @@ export const AddTask = ({
             <>
               <div data-testid="quick-add-task" className="add-task__header">
                 <h3>Quick Add Task</h3>
-                <span
-                  className="add-task__cancel-x"
-                  data-testid="add-task-quick-cancel"
-                >
+                <span className="add-task__cancel-x">
                   <button
+                    data-testid="add-task-quick-cancel"
                     tabIndex={0}
                     onClick={() => {
                       setShowMain(false);
@@ -147,7 +146,7 @@ export const AddTask = ({
 
             <div className="add-task__details">
               <Dropdown
-                customClass="add-task__icon"
+                customClass="add-task__project"
                 select={<FaRegListAlt />}
                 options={projects}
                 clickHandler={(project) => {
@@ -156,7 +155,7 @@ export const AddTask = ({
               />
               <span
                 className="add-task__date"
-                data-testid="show-task-date-overlay"
+                data-testid="add-task__date"
                 onClick={() => setShowTaskdateOverlay(!showTaskdateOverlay)}
               >
                 <FaRegCalendarAlt />

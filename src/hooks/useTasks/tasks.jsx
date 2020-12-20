@@ -7,7 +7,7 @@ import { collatedTasksExist } from "../../helpers";
 export const useTasks = (selectedProject) => {
   const [tasks, setTasks] = useState([]);
   const [archivedTasks, setArchivedTasks] = useState([]);
-  console.log("selectedProject ===", selectedProject);
+//  console.log("selectedProject ===", selectedProject);
 
   useEffect(() => {
     let unsubscribe = firebase
@@ -45,10 +45,10 @@ export const useTasks = (selectedProject) => {
       console.log("selectedProject === TODAY =>>>>", unsubscribe);
     } else if (selectedProject === "INBOX" || selectedProject === 0) {
       unsubscribe = unsubscribe.where("date", "==", "");
-      console.log(
-        "selectedProject === INBOX || selectedProject === 0 =>>>>",
-        unsubscribe
-      );
+      // console.log(
+      //   "selectedProject === INBOX || selectedProject === 0 =>>>>",
+      //   unsubscribe
+      // );
     }
 
     unsubscribe = unsubscribe.onSnapshot((snapshot) => {

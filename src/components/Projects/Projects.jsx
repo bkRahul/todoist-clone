@@ -12,9 +12,9 @@ export const Projects = ({ activeValue = null }) => {
     projects &&
     projects.map((project) => (
       <li
+        data-testid="project-list"
         key={project.projectId}
         data-doc-id={project.docId}
-        data-testid="project-action"
         className={
           active === project.projectId
             ? ' active sidebar__project'
@@ -22,6 +22,7 @@ export const Projects = ({ activeValue = null }) => {
         }
       >
         <button
+          data-testid="project-action"
           className="sidebar__project--single"
           onKeyDown={() => {
             setActive(project.projectId);
