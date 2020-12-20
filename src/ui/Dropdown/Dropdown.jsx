@@ -48,20 +48,26 @@ export const Dropdown = ({
 
   return (
     <div className={`custom-dropdown ${customClass}`} ref={drop}>
-      <button type="button" onClick={() => setIsOpen(!isOpen)}>
+      <button
+        data-testid={customClass}
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {select}
       </button>
       {isOpen && (
-        <ul>
+        <ul data-testid={`${customClass}--container`}>
           {options.map((item) => (
-            <li
-              onClick={() => {
-                clickHandler(item);
-                setIsOpen(false);
-              }}
-              key={item.projectId}
-            >
-              <button type="button" tabIndex={0}>
+            <li data-testid={`${customClass}--list`} key={item.projectId}>
+              <button
+                data-testid={`${item.projectId}--list`}
+                onClick={() => {
+                  clickHandler(item);
+                  setIsOpen(false);
+                }}
+                type="button"
+                tabIndex={0}
+              >
                 {item.name}
               </button>
             </li>
