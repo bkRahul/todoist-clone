@@ -1,11 +1,11 @@
-import React from "react";
-import moment from "moment";
+import React from 'react';
+import moment from 'moment';
 
 import {
   FaRegPaperPlane,
   FaRegCalendar,
   FaRegCalendarAlt,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 
 export const TaskDateOverlay = ({
   setTaskDate,
@@ -19,7 +19,7 @@ export const TaskDateOverlay = ({
           <li
             data-testid="taskdate-today"
             onClick={() => {
-              setTaskDate(moment().format("DD/MM/YYYY"));
+              setTaskDate(moment().format('DD/MM/YYYY'));
               setShowTaskdateOverlay(false);
             }}
           >
@@ -31,7 +31,7 @@ export const TaskDateOverlay = ({
           <li
             data-testid="taskdate-tomorrow"
             onClick={() => {
-              setTaskDate(moment().add(1, "day").format("DD/MM/YYYY"));
+              setTaskDate(moment().add(1, 'day').format('DD/MM/YYYY'));
               setShowTaskdateOverlay(false);
             }}
           >
@@ -43,14 +43,14 @@ export const TaskDateOverlay = ({
           <li
             data-testid="taskdate-next-week"
             onClick={() => {
-              setTaskDate(moment().add(7, "days").format("DD/MM/YYYY"));
+              setTaskDate(moment().add(7, 'days').format('DD/MM/YYYY'));
               setShowTaskdateOverlay(false);
             }}
           >
             <span>
               <FaRegCalendarAlt />
             </span>
-            <span>Next 7 Days</span>
+            <span>Next Week</span>
           </li>
         </ul>
       </div>

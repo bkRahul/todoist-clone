@@ -1,19 +1,19 @@
-import moment from "moment";
-import { firebase } from "../../firebase";
-import { useState, useEffect } from "react";
+import moment from 'moment';
+import { firebase } from '../../firebase';
+import { useState, useEffect } from 'react';
 //all tasks merged into one
-import { collatedTasksExist } from "../../helpers";
+import { collatedTasksExist } from '../../helpers';
 
 export const useTasks = (selectedProject) => {
   const [tasks, setTasks] = useState([]);
   const [archivedTasks, setArchivedTasks] = useState([]);
-//  console.log("selectedProject ===", selectedProject);
+  //  console.log("selectedProject ===", selectedProject);
 
   useEffect(() => {
     let unsubscribe = firebase
       .firestore()
-      .collection("tasks")
-      .where("userId", "==", "chtjuMWL3bEWyMN");
+      .collection('tasks')
+      .where('userId', '==', 'chtjuMWL3bEWyMN');
 
     // unsubscribe =
     //   selectedProject && !collatedTasksExist(selectedProject)
@@ -31,20 +31,20 @@ export const useTasks = (selectedProject) => {
     //if selected project does not exist in collatedTasks
 
     if (selectedProject && !collatedTasksExist(selectedProject)) {
-      unsubscribe = unsubscribe.where("projectId", "==", selectedProject);
+      unsubscribe = unsubscribe.where('projectId', '==', selectedProject);
       console.log(
-        "selectedProject === ID & !collated tasks =>>>>",
+        'selectedProject === ID & !collated tasks =>>>>',
         unsubscribe
       );
-    } else if (selectedProject === "TODAY") {
+    } else if (selectedProject === 'TODAY') {
       unsubscribe = unsubscribe.where(
-        "date",
-        "==",
-        moment().format("DD/MM/YYYY")
+        'date',
+        '==',
+        moment().format('DD/MM/YYYY')
       );
-      console.log("selectedProject === TODAY =>>>>", unsubscribe);
-    } else if (selectedProject === "INBOX" || selectedProject === 0) {
-      unsubscribe = unsubscribe.where("date", "==", "");
+      console.log('selectedProject === TODAY =>>>>', unsubscribe);
+    } else if (selectedProject === 'INBOX' || selectedProject === 0) {
+      unsubscribe = unsubscribe.where('date', '==', '');
       // console.log(
       //   "selectedProject === INBOX || selectedProject === 0 =>>>>",
       //   unsubscribe
@@ -58,10 +58,10 @@ export const useTasks = (selectedProject) => {
       }));
 
       setTasks(
-        selectedProject === "NEXT_7"
+        selectedProject === 'NEXT_7_DAYS'
           ? newTasks.filter(
               (task) =>
-                moment(task.date, "DD-MM-YYYY").diff(moment(), "days") <= 7 &&
+                moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7 &&
                 task.archived !== true
             )
           : newTasks.filter((task) => task.archived !== true)
