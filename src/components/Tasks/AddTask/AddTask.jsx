@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
+import { FaPlus } from 'react-icons/fa';
 import { useSelectedProjectValue, useProjectsValue } from '../../../context';
 import { firebase } from '../../../firebase';
 import { FaRegCalendarAlt, FaRegListAlt, FaTimes } from 'react-icons/fa';
@@ -70,13 +71,13 @@ export const AddTask = ({
           // }
         }}
       ></div>
-      {showAddTaskMain && (
+      {showAddTaskMain && !showMain && (
         <div
           className="add-task__shallow"
           data-testid="show-main-add-task"
           onClick={() => setShowMain(!showMain)}
         >
-          <span className="add-task__plus">+</span>
+          <FaPlus className="add-task__plus" />
           <span className="add-task__text">Add Task</span>
         </div>
       )}

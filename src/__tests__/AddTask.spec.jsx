@@ -32,7 +32,7 @@ jest.mock('../firebase', () => ({
 }));
 
 //define a test suite on the component
-describe('<Addtask/>', () => {
+describe('<AddTask/>', () => {
   //define a hook to run after each test to clear all mocks
   afterEach(() => {
     jest.clearAllMocks();

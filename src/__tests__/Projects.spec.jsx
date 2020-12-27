@@ -14,7 +14,7 @@ jest.mock('../context', () => ({
     projects: [
       {
         name: '🎯 React Basics',
-        projectId: 1,
+        projectId: '1',
         userId: 'chtjuMWL3bEWyMN',
       },
     ],
@@ -36,7 +36,11 @@ describe('Success ', () => {
   });
 
   it('renders the projects list and selects a project on click', () => {
-    const { queryByTestId } = render(<Projects />);
+    const setActive = jest.fn();
+
+    const { queryByTestId } = render(
+      <Projects active="1" setActive={setActive} />
+    );
     expect(queryByTestId('project-action')).toBeTruthy();
 
     fireEvent.click(queryByTestId('project-action'));
@@ -45,8 +49,12 @@ describe('Success ', () => {
     ).toBeTruthy();
   });
 
-  it('renders the projects list and selects a project on keydown', () => {
-    const { queryByTestId } = render(<Projects />);
+  it('renders the projects list and selects a project on keyDown', () => {
+    const setActive = jest.fn();
+
+    const { queryByTestId } = render(
+      <Projects active="1" setActive={setActive} />
+    );
     expect(queryByTestId('project-action')).toBeTruthy();
 
     fireEvent.keyDown(queryByTestId('project-action'));

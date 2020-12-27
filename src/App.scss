@@ -63,19 +63,16 @@ header {
         text-align: right;
 
         ul {
-          float: right;
+          @extend %d-flex;
+          justify-content: flex-end;
         }
 
         ul li {
-          @include va;
-
+          @extend %d-flex;
           list-style-type: none;
           cursor: pointer;
           width: 30px;
           height: 30px;
-          text-align: center;
-          vertical-align: middle;
-          float: left;
 
           &:hover {
             border-radius: 3px;
@@ -86,15 +83,18 @@ header {
             margin-right: 15px;
 
             button {
+              height: 100%;
               width: 100%;
               @include transparent-button();
               color: white;
+              font-size: 14px;
             }
           }
 
           &.settings__darkmode {
             button {
               width: 100%;
+              height: 100%;
               @include transparent-button();
               color: white;
               display: -webkit-box;
@@ -532,7 +532,7 @@ header {
 .add-task__plus,
 .add-project__plus {
   color: #dd4b39;
-  font-size: 18px;
+  font-size: 10px;
 }
 
 .add-task__text,
@@ -632,5 +632,10 @@ header {
 
   &__cancel {
     @include cancel();
+  }
+
+  &__action {
+    @extend %d-flex;
+    justify-content: unset;
   }
 }
