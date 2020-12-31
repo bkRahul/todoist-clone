@@ -6,13 +6,22 @@ import { AddTask } from '../../Tasks/AddTask/AddTask';
 export const Header = ({ darkMode, setDarkMode }) => {
   const [showMain, setShowMain] = useState(false);
   const [showQuickAddTask, setShowQuickAddTask] = useState(false);
-
+  const logoContainer = {
+    display: 'flex',
+    alignItems: 'center',
+  };
+  const logoText = {
+    color: '#fff',
+    fontWeight: '500',
+    marginLeft: '12px',
+  };
   return (
     <div>
       <header className="header" data-testid="header">
         <nav>
-          <div className="logo">
+          <div className="logo" style={logoContainer}>
             <img src={logo} alt="logo" />
+            <p style={logoText}>Todoist Clone</p>
           </div>
           <div className="settings">
             <ul>

@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.scss';
 import { Content } from './components/layout/Content/Content';
-import { Header } from './components/layout/Header/Header';
 import { ProjectsProvider, SelectedProjectProvider } from './context';
-import { useLocalStorage } from './hooks/useLocalStorage/localStorage';
+import { TasksProvider } from './context/tasks-context';
+import WithLayout from './hoc/Layout/WithLayout';
 //import { addCollectionsAndDocs } from "./helpers/firebase";
 
 // const projectData = [
@@ -34,7 +34,7 @@ import { useLocalStorage } from './hooks/useLocalStorage/localStorage';
 //   },
 // ];
 
-export const App = ({ darkModeDefault = false }) => {
+export const App = () => {
   // useEffect(() => {
   //   addCollectionsAndDocs(
   //     "projects",
@@ -45,19 +45,14 @@ export const App = ({ darkModeDefault = false }) => {
   //     }))
   //   );
   // }, []);
-
-  const [darkMode, setDarkMode] = useLocalStorage('darkmode', darkModeDefault);
-
   return (
     <ProjectsProvider>
       <SelectedProjectProvider>
-        <main
-          data-testid="application"
-          className={darkMode ? 'darkmode' : undefined}
-        >
-          <Header darkMode={darkMode} setDarkMode={setDarkMode} />
-          <Content />
-        </main>
+        <TasksProvider>
+          <WithLayout>
+            <Content />
+          </WithLayout>
+        </TasksProvider>
       </SelectedProjectProvider>
     </ProjectsProvider>
   );
