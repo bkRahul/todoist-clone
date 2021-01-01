@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { collatedTasks } from '../../constants';
 import { useProjectsValue, useSelectedProjectValue } from '../../context';
 import { collatedTasksExist, getCollatedTitle, getTitle } from '../../helpers';
+import withSpinner from '../../hoc/Spinner/withSpinner';
 import { useTasks } from '../../hooks/useTasks/tasks';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { AddTask } from './AddTask/AddTask';
 
-export const Tasks = () => {
+const Tasks = () => {
   //get all the projects
   const { projects } = useProjectsValue();
   //get selected Project Id
@@ -25,14 +26,15 @@ export const Tasks = () => {
 
   //if projects does not exist in INBOX NEXT7DAYS or TODAY
   if (projects && selectedProject && !collatedTasksExist(selectedProject)) {
-    projectName = getTitle(projects, selectedProject).name;
-    //    console.log("collatedTasksExist!==", projectName);
+    console.log(projects, selectedProject);
+    projectName = getTitle(projects, selectedProject)?.name;
+    //    console.log('collatedTasksExist!==', projectName);
   }
 
   //if projects exist in INBOX NEXT7DAYS or TODAY
   if (selectedProject && collatedTasksExist(selectedProject)) {
     projectName = getCollatedTitle(collatedTasks, selectedProject).value;
-    //    console.log("collatedTasksExist===", projectName);
+    //    console.log('collatedTasksExist===', projectName);
   }
 
   useEffect(() => {
@@ -54,3 +56,5 @@ export const Tasks = () => {
     </div>
   );
 };
+
+export default withSpinner(Tasks);

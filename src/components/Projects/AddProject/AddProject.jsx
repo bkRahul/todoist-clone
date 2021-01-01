@@ -1,39 +1,44 @@
-import React from "react";
-import { useState } from "react";
-import { useProjectsValue } from "../../../context";
-import { firebase } from "../../../firebase";
-import { generatePushId } from "../../../helpers";
+import React from 'react';
+import { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
 
-export const AddProject = ({ shouldShow = false }) => {
+import { useProjectsValue, useSelectedProjectValue } from '../../../context';
+import { firebase } from '../../../firebase';
+import { generatePushId } from '../../../helpers';
+
+export const AddProject = ({ shouldShow = false, setActive }) => {
   const [show, setShow] = useState(shouldShow);
-  const [projectName, setProjectName] = useState("");
-  const {projects, setProjects } = useProjectsValue();
-  const projectId = generatePushId();
+  const [projectName, setProjectName] = useState('');
+  const { projects, setProjects } = useProjectsValue();
+  const { setSelectedProject } = useSelectedProjectValue();
 
+  const projectId = generatePushId();
   const addProject = () => {
     projectName &&
       firebase
         .firestore()
-        .collection("projects")
+        .collection('projects')
         .add({
           projectId,
           name: projectName,
-          userId: "chtjuMWL3bEWyMN",
+          userId: 'chtjuMWL3bEWyMN',
+          archived: false,
         })
         .then(function (docRef) {
-          //console.log("Document written with ID: ", docRef.id);
           setProjects([...projects]);
-          setProjectName("");
-          setShow(false);
-        })
-        .catch(function (error) {
-          console.error("Error adding document: ", error);
         });
+    // .catch(function (error) {
+    //   console.error('Error adding document: ', error);
+    // });
+    setActive(projectId);
+    setSelectedProject(projectId);
+    setProjectName('');
+    setShow(false);
   };
   return (
-    <div className="add-project" data-tesid="add-project">
+    <div className="add-project" data-testid="add-project">
       {show && (
-        <div className="add-project__input">
+        <div className="add-project__input" data-testid="add-project-container">
           <input
             type="text"
             value={projectName}
@@ -43,9 +48,11 @@ export const AddProject = ({ shouldShow = false }) => {
             className="add-project__name"
           />
           <button
-            onClick={() => addProject()}
+            onClick={() => {
+              addProject();
+            }}
             className="add-project__submit"
-            data-testid="add-project-submit"
+            data-testid="add-project-button"
           >
             Add Project
           </button>
@@ -58,14 +65,16 @@ export const AddProject = ({ shouldShow = false }) => {
           </span>
         </div>
       )}
-      <span className="add-project__plus">+</span>
-      <span
-        data-testid="add-project-action"
-        className="add-project__text"
-        onClick={() => setShow(!show)}
-      >
-        Add Project
-      </span>
+      {!show && (
+        <div
+          className="add-project__action"
+          data-testid="add-project-action"
+          onClick={() => setShow(!show)}
+        >
+          <FaPlus className="add-project__plus" />
+          <span className="add-project__text">Add Project</span>
+        </div>
+      )}
     </div>
   );
 };

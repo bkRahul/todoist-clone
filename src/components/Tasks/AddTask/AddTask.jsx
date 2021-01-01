@@ -45,8 +45,6 @@ export const AddTask = ({
         .then(function (docRef) {
           //console.log("Document written with ID: ", docRef.id);
           setTask('');
-          setProject('');
-          setShowMain('');
         })
         .catch(function (error) {
           console.error('Error adding document: ', error);
@@ -125,8 +123,10 @@ export const AddTask = ({
                 data-testid="add-task-button"
                 onClick={() =>
                   showQuickAddTask
-                    ? addTask() && setShowQuickAddTask(false)
-                    : addTask()
+                    ? addTask() &&
+                      setShowQuickAddTask(false) &&
+                      setShowMain(false)
+                    : addTask() && setShowMain(false)
                 }
               >
                 Add Task

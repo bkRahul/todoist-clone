@@ -20,7 +20,7 @@ export const Project = ({ project }) => {
         setSelectedProject('INBOX');
       });
   };
-  //  console.log({ project });
+
   return (
     <>
       <span className="sidebar__dot">&bull;</span>

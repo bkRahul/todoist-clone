@@ -132,7 +132,9 @@ header {
   // @include mq("900px") {
   //   display: none;
   // }
-
+  ul {
+    margin-bottom: 1em;
+  }
   li {
     font-weight: 500;
     font-size: 14px;
@@ -186,7 +188,15 @@ header {
   }
 
   &__projects {
-    padding-left: 3px;
+    overflow: hidden;
+    padding-left: 6px;
+
+    max-height: 1000px;
+    transition-duration: 290ms;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    &.collapse {
+      max-height: 0px;
+    }
   }
 
   &__project {
@@ -199,11 +209,11 @@ header {
   }
 
   &__middle {
-    margin-top: 20px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     border-bottom: $generic-border;
+    padding: 10px 0;
     padding-left: 10px;
     cursor: pointer;
 
@@ -211,18 +221,24 @@ header {
       color: #0000008a;
       margin-right: 10px;
 
-      svg.hidden-projects {
-        -webkit-transform: rotate(-90deg);
-        transform: rotate(-90deg);
+      svg {
+        -webkit-transition: -webkit-transform 0.15s cubic-bezier(0.4, 0, 0.2, 1)
+          0ms;
+        transition: -webkit-transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          -webkit-transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        &.hidden-projects {
+          -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+        }
       }
     }
 
     h2 {
-      margin: 0;
       color: #333;
       font-size: 15px;
       font-weight: bold;
-      padding-bottom: 15px;
     }
   }
 
@@ -230,13 +246,14 @@ header {
     li {
       list-style-type: none;
       color: #333;
+      align-items: center;
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
       cursor: pointer;
       line-height: 1;
       font-size: 15px;
-      padding: 8px 0 8px 15px;
+      padding: 10px 0 10px 15px;
 
       span {
         margin-right: 10px;
