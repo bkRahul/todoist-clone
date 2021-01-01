@@ -351,6 +351,11 @@ header {
   padding-top: 80px;
   padding-bottom: 84px;
 
+  &.tasks--empty {
+    background-image: url('./assets/images/tasks_placeholder.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+  }
   // @include mq("900px") {
   //   margin-left: 0;
   //   width: auto;

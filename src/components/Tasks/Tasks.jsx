@@ -3,12 +3,11 @@ import { useEffect } from 'react';
 import { collatedTasks } from '../../constants';
 import { useProjectsValue, useSelectedProjectValue } from '../../context';
 import { collatedTasksExist, getCollatedTitle, getTitle } from '../../helpers';
-import withSpinner from '../../hoc/Spinner/withSpinner';
 import { useTasks } from '../../hooks/useTasks/tasks';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { AddTask } from './AddTask/AddTask';
 
-const Tasks = () => {
+export const Tasks = () => {
   //get all the projects
   const { projects } = useProjectsValue();
   //get selected Project Id
@@ -42,7 +41,10 @@ const Tasks = () => {
   });
 
   return (
-    <div className="tasks" data-testid="tasks">
+    <div
+      className={tasks.length !== 0 ? 'tasks' : 'tasks tasks--empty'}
+      data-testid="tasks"
+    >
       <h2 data-testid="project-name">{projectName}</h2>
       <ul className="tasks__list">
         {tasks.map(({ id, task }) => (
@@ -56,5 +58,3 @@ const Tasks = () => {
     </div>
   );
 };
-
-export default withSpinner(Tasks);
