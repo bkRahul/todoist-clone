@@ -1,6 +1,6 @@
-import React from "react";
-import { Tasks } from "../../Tasks/Tasks";
-import { Sidebar } from "../Sidebar/Sidebar";
+import React from 'react';
+import Tasks from '../../Tasks/Tasks';
+import { Sidebar } from '../Sidebar/Sidebar';
 
 export const Content = () => {
   return (
