@@ -120,10 +120,8 @@ header {
 .sidebar {
   @include no-select();
   padding-left: 28px;
-  width: 266px;
   height: calc(100vh);
   padding-top: 74px;
-  position: fixed;
   overflow-x: hidden;
   overflow-y: auto;
   border-right: $generic-border;
@@ -145,10 +143,9 @@ header {
   }
 
   &__project {
-    .sidebar__project--single {
-      outline: none;
-      display: flex;
-      align-items: center;
+    flex-direction: column;
+    &-single {
+      @extend %d-flex;
       justify-content: left;
       text-align: left;
       background: transparent;
@@ -156,12 +153,48 @@ header {
       width: 100%;
       cursor: pointer;
     }
+    &-actions {
+      @extend %d-flex;
+      justify-content: space-evenly;
+      width: 100%;
+      padding: 10px 20px;
+      span {
+        padding: 2px 5px;
+        position: relative;
+        cursor: pointer;
+      }
+    }
 
     &-name {
       padding-right: 10px;
+      width: 100%;
       word-break: break-word;
+      padding: 8px 0;
     }
 
+    &-menu {
+      font-size: 24px;
+      visibility: hidden;
+      padding-right: 15px;
+      padding-left: 5px;
+      button {
+        font-size: 18px;
+      }
+    }
+    &-menu--container {
+      @extend %d-flex;
+      flex-direction: column;
+      position: fixed !important;
+      right: 46% !important;
+      width: auto !important;
+      li {
+        width: 100%;
+        button {
+          @extend %d-flex;
+          justify-content: space-between;
+        }
+      }
+    }
     &-delete {
       margin-left: auto;
       margin-right: 15px;
@@ -174,14 +207,16 @@ header {
 
     &.active {
       background-color: white;
-
-      .sidebar__project--single {
-        font-weight: bold;
-        background-color: white;
+      font-weight: bold;
+      .sidebar__project-menu {
+        visibility: visible;
       }
     }
     &:hover {
       background-color: white;
+    }
+    &:hover &-menu {
+      visibility: visible;
     }
 
     @include list-color();
@@ -333,7 +368,7 @@ header {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr 2fr;
   max-width: 922px;
   margin: auto;
 }
@@ -342,7 +377,6 @@ header {
         ============================================ */
 .tasks {
   background-color: white;
-  margin-left: 266px;
   border-right: $generic-border;
   min-height: calc(100vh);
   vertical-align: top;
@@ -354,7 +388,8 @@ header {
   &.tasks--empty {
     background-image: url('./assets/images/tasks_placeholder.png');
     background-repeat: no-repeat;
-    background-position: bottom;
+    background-position: center;
+    background-size: 400px;
   }
   // @include mq("900px") {
   //   margin-left: 0;
@@ -372,9 +407,7 @@ header {
   }
 
   &__list li {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    @extend %d-flex;
     line-height: 18px;
     color: #333;
     padding-top: 10px;
@@ -382,30 +415,20 @@ header {
     font-size: 14px;
     list-style-type: none;
     border-bottom: 1px solid #f0f0f0;
-
-    .checkbox-holder {
-      margin-right: 20px;
-      display: -webkit-box;
-      display: -ms-flexbox;
+    .checkTask {
       display: flex;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      align-items: center;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      justify-content: center;
-      line-height: 16px;
-
-      .checkbox {
-        cursor: pointer;
-        border-color: gray;
-        color: #343434;
-        height: 16px;
-        width: 16px;
-        display: block;
-        border: 1px solid gray;
-        border-radius: 16px;
-      }
+      cursor: pointer;
+      font-size: 18px;
+      margin-right: 12px;
+    }
+    .done {
+      text-decoration: line-through;
+    }
+    .delete {
+      font-size: 15px;
+      margin-left: auto;
+      cursor: pointer;
+      padding: 0 4px;
     }
   }
 }

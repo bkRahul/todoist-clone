@@ -140,6 +140,7 @@ export const Sidebar = () => {
           active={active}
           setActive={setActive}
           projects={archivedProjects}
+          projectType="archived"
         />
       </ul>
     </div>

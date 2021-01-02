@@ -3,6 +3,7 @@ import './Dropdown.scss';
 
 export const Dropdown = ({
   customClass,
+  align = 'left',
   select,
   options = [],
   clickHandler,
@@ -56,7 +57,10 @@ export const Dropdown = ({
         {select}
       </button>
       {isOpen && (
-        <ul data-testid={`${customClass}--container`}>
+        <ul
+          data-testid={`${customClass}--container `}
+          className={`${customClass}--container ${align}`}
+        >
           {options.map((item) => (
             <li data-testid={`${customClass}--list`} key={item.projectId}>
               <button
@@ -68,7 +72,8 @@ export const Dropdown = ({
                 type="button"
                 tabIndex={0}
               >
-                {item.name}
+                <span>{item.icon && item.icon}</span>
+                <span className="name">{item.name}</span>
               </button>
             </li>
           ))}

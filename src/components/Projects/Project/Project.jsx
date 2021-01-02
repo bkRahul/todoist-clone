@@ -1,58 +1,157 @@
-import React from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { firebase } from '../../../firebase';
-import { useState } from 'react';
 import { useProjectsValue, useSelectedProjectValue } from '../../../context';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaPencilAlt, FaArchive, FaTrash } from 'react-icons/fa';
+import { MdMoreHoriz } from 'react-icons/md';
 
-export const Project = ({ project }) => {
-  const [showConfirm, setShowConfirm] = useState(false);
+export const Project = ({ project, setActive }) => {
   const { projects, setProjects } = useProjectsValue();
   const { setSelectedProject } = useSelectedProjectValue();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const deleteProject = (docID) => {
+  const drop = useRef(null);
+
+  const deleteProject = (docId) => {
     firebase
       .firestore()
       .collection('projects')
-      .doc(docID)
+      .doc(docId)
       .delete()
       .then(() => {
         setProjects([...projects]);
         setSelectedProject('INBOX');
+        setActive('inbox');
       });
   };
 
+  const archiveProjectToggle = (docId) => {
+    firebase
+      .firestore()
+      .collection('projects')
+      .doc(docId)
+      .update({ archived: !project.archived })
+      .then(() => {
+        setProjects([...projects]);
+        setSelectedProject('INBOX');
+        setActive('inbox');
+      });
+  };
+
+  const clickAction = (type) => {
+    setIsOpen(!isOpen);
+    type === 'deleteProject' && deleteProject(project.docId);
+    // type === 'renameProject' && renameProject(project.docID);
+    type === 'archiveProject' && archiveProjectToggle(project.docId);
+    console.log(type);
+  };
+
+  const handleOutsideClick = useCallback(
+    (e) => {
+      if (!e.target.closest(`.${drop?.current?.className}`) && isOpen) {
+        setIsOpen(false);
+        document.removeEventListener('click', handleOutsideClick, false);
+      }
+    },
+    [isOpen]
+  );
+
+  const handleKeyUp = useCallback((e) => {
+    const keys = {
+      27: () => {
+        e.preventDefault();
+        setIsOpen(false);
+        window.removeEventListener('keyup', handleKeyUp, false);
+      },
+    };
+
+    if (keys[e.keyCode]) {
+      keys[e.keyCode]();
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('keyup', handleKeyUp, false);
+    document.addEventListener('click', handleOutsideClick, false);
+
+    return () => {
+      window.removeEventListener('keyup', handleKeyUp, false);
+      document.removeEventListener('click', handleOutsideClick, false);
+    };
+  }, [handleOutsideClick, handleKeyUp]);
+
+  const menuValues = [
+    {
+      icon: <FaPencilAlt />,
+      name: 'Rename Project',
+      type: 'renameProject',
+      projectId: '1',
+    },
+    {
+      icon: <FaTrash />,
+      name: 'Delete Project',
+      type: 'deleteProject',
+      projectId: '2',
+    },
+    {
+      icon: <FaArchive />,
+      name: 'Archive Project',
+      type: 'archiveProject',
+      projectId: '3',
+    },
+  ];
   return (
     <>
-      <span className="sidebar__dot">&bull;</span>
-      <span className="sidebar__project-name">{project.name}</span>
-      <span
-        className="sidebar__project-delete"
-        data-testid="delete-project"
-        onClick={() => setShowConfirm(!showConfirm)}
-        onKeyDown={() => setShowConfirm(!showConfirm)}
+      <div
+        data-testid="project-single"
+        className="sidebar__project-single"
+        onKeyDown={() => {
+          setActive(project.projectId);
+          setSelectedProject(project.projectId);
+        }}
+        onClick={() => {
+          setActive(project.projectId);
+          setSelectedProject(project.projectId);
+        }}
         tabIndex={0}
-        role="button"
       >
-        <FaTrashAlt />
-        {showConfirm && (
-          <div className="project-delete-modal">
-            <div className="project-delete-modal__inner">
-              <p>Are you sure you want to delete the project ?</p>
-              <button onClick={() => deleteProject(project.docId)} tabIndex={0}>
-                Delete
-              </button>
-              <span
-                onClick={() => setShowConfirm(!showConfirm)}
-                onKeyDown={() => setShowConfirm(!showConfirm)}
-                tabIndex={0}
-                role="button"
-              >
-                Cancel
-              </span>
-            </div>
-          </div>
-        )}
-      </span>
+        <span className="sidebar__dot">&bull;</span>
+        <span className="sidebar__project-name">{project.name}</span>
+        {/* <Dropdown
+          customClass="sidebar__project-menu"
+          select={<MdMoreHoriz />}
+          options={menuValues}
+          align="left"
+          clickHandler={(action) => {
+            clickAction(action.type);
+          }}
+        /> */}
+        <span className="sidebar__project-menu">
+          <MdMoreHoriz onClick={clickAction} />
+        </span>
+      </div>
+      {isOpen ? (
+        <div
+          data-testid="project-actions"
+          className="sidebar__project-actions"
+          ref={drop}
+        >
+          {menuValues.map((item) => (
+            <span
+              data-tooltip={
+                item?.name === 'Archive Project' && project?.archived
+                  ? 'Unarchive'
+                  : item.name
+              }
+              title={item.name}
+              onClick={() => clickAction(item.type)}
+            >
+              {item.icon}
+            </span>
+          ))}
+        </div>
+      ) : (
+        ''
+      )}
     </>
   );
 };
