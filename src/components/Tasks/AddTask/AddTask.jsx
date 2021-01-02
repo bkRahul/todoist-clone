@@ -36,7 +36,7 @@ export const AddTask = ({
         .firestore()
         .collection('tasks')
         .add({
-          archived: false,
+          done: false,
           date: collatedDate || taskdate,
           projectId,
           task,

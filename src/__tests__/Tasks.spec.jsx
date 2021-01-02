@@ -45,7 +45,7 @@ jest.mock('../hooks/useTasks/tasks', () => ({
     tasks: [
       {
         id: '81jDjygQhjQEIoe8mqSi',
-        archived: false,
+        done: false,
         date: '27/12/2020',
         projectId: '1',
         task: 'some task',

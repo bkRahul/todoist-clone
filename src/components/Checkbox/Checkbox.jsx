@@ -1,20 +1,18 @@
 import React from 'react';
 import { firebase } from '../../firebase';
+import { FaRegCheckCircle, FaRegCircle } from 'react-icons/fa';
 
-export const Checkbox = ({ id, task }) => {
-  const archiveTask = () => {
-    firebase.firestore().collection('tasks').doc(id).update({ archived: true });
+export const Checkbox = ({ id, task, done }) => {
+  const taskStatusToggle = () => {
+    firebase.firestore().collection('tasks').doc(id).update({ done: !done });
   };
   return (
-    <div
-      className="checkbox-holder"
-      data-testid="checkbox-action"
-      onClick={archiveTask}
-      role="button"
-      aria-label={`Mark ${task} as done`}
-      tabIndex={0}
-    >
-      <span className="checkbox" />
+    <div className="checkTask">
+      {!done ? (
+        <FaRegCircle onClick={taskStatusToggle} />
+      ) : (
+        <FaRegCheckCircle onClick={taskStatusToggle} />
+      )}
     </div>
   );
 };

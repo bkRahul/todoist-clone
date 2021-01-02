@@ -16,50 +16,48 @@ export const Header = ({ darkMode, setDarkMode }) => {
     marginLeft: '12px',
   };
   return (
-    <div>
-      <header className="header" data-testid="header">
-        <nav>
-          <div className="logo" style={logoContainer}>
-            <img src={logo} alt="logo" />
-            <p style={logoText}>Todoist Clone</p>
-          </div>
-          <div className="settings">
-            <ul>
-              <li className="settings__add">
-                <button
-                  data-testid="quick-add-task-action"
-                  tabIndex={0}
-                  onClick={() => {
-                    setShowMain(true);
-                    setShowQuickAddTask(true);
-                  }}
-                  onKeyDown={() => {
-                    setShowMain(true);
-                    setShowQuickAddTask(true);
-                  }}
-                >
-                  <FaPlus />
-                </button>
-              </li>
-              <li className="settings__darkmode">
-                <button
-                  data-testid="dark-mode-action"
-                  tabIndex={0}
-                  onClick={() => setDarkMode(!darkMode)}
-                >
-                  {darkMode ? <FaSun /> : <FaMoon />}
-                </button>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <AddTask
-          showAddTaskMain={false}
-          shouldShowMain={showMain}
-          showQuickAddTask={showQuickAddTask}
-          setShowQuickAddTask={setShowQuickAddTask}
-        />
-      </header>
-    </div>
+    <header className="header" data-testid="header">
+      <nav>
+        <div className="logo" style={logoContainer}>
+          <img src={logo} alt="logo" />
+          <p style={logoText}>Todoist Clone</p>
+        </div>
+        <div className="settings">
+          <ul>
+            <li className="settings__add">
+              <button
+                data-testid="quick-add-task-action"
+                tabIndex={0}
+                onClick={() => {
+                  setShowMain(true);
+                  setShowQuickAddTask(true);
+                }}
+                onKeyDown={() => {
+                  setShowMain(true);
+                  setShowQuickAddTask(true);
+                }}
+              >
+                <FaPlus />
+              </button>
+            </li>
+            <li className="settings__darkmode">
+              <button
+                data-testid="dark-mode-action"
+                tabIndex={0}
+                onClick={() => setDarkMode(!darkMode)}
+              >
+                {darkMode ? <FaSun /> : <FaMoon />}
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <AddTask
+        showAddTaskMain={false}
+        shouldShowMain={showMain}
+        showQuickAddTask={showQuickAddTask}
+        setShowQuickAddTask={setShowQuickAddTask}
+      />
+    </header>
   );
 };

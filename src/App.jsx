@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.scss';
 import { Content } from './components/layout/Content/Content';
 import { ProjectsProvider, SelectedProjectProvider } from './context';

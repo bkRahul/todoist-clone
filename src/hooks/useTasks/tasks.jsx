@@ -6,8 +6,6 @@ import { collatedTasksExist } from '../../helpers';
 
 export const useTasks = (selectedProject) => {
   const [tasks, setTasks] = useState([]);
-  const [archivedTasks, setArchivedTasks] = useState([]);
-  //  console.log("selectedProject ===", selectedProject);
 
   useEffect(() => {
     let unsubscribe = firebase
@@ -61,16 +59,14 @@ export const useTasks = (selectedProject) => {
         selectedProject === 'NEXT_7_DAYS'
           ? newTasks.filter(
               (task) =>
-                moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7 &&
-                task.archived !== true
+                moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7
             )
-          : newTasks.filter((task) => task.archived !== true)
+          : newTasks
       );
-      setArchivedTasks(newTasks.filter((task) => task.archived !== false));
     });
 
     return () => unsubscribe();
   }, [selectedProject]);
 
-  return { tasks, archivedTasks };
+  return { tasks };
 };

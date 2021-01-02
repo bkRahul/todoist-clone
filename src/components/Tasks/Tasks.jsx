@@ -1,5 +1,6 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { firebase } from '../../firebase';
+import { FaTrash } from 'react-icons/fa';
 import { collatedTasks } from '../../constants';
 import { useProjectsValue, useSelectedProjectValue } from '../../context';
 import { collatedTasksExist, getCollatedTitle, getTitle } from '../../helpers';
@@ -15,6 +16,17 @@ export const Tasks = () => {
   const { tasks } = useTasks(selectedProject);
   let projectName = '';
 
+  const deleteTasks = (docId) => {
+    firebase
+      .firestore()
+      .collection('tasks')
+      .doc(docId)
+      .delete()
+      .then(() => {
+        //        setProjects([...tasks]);
+      });
+  };
+
   // console.log("tasks===", tasks);
   // console.log("projects===", projects);
   // console.log("selectedProject ===", selectedProject);
@@ -25,7 +37,6 @@ export const Tasks = () => {
 
   //if projects does not exist in INBOX NEXT7DAYS or TODAY
   if (projects && selectedProject && !collatedTasksExist(selectedProject)) {
-    console.log(projects, selectedProject);
     projectName = getTitle(projects, selectedProject)?.name;
     //    console.log('collatedTasksExist!==', projectName);
   }
@@ -47,10 +58,13 @@ export const Tasks = () => {
     >
       <h2 data-testid="project-name">{projectName}</h2>
       <ul className="tasks__list">
-        {tasks.map(({ id, task }) => (
+        {tasks.map(({ id, task, done }) => (
           <li key={id}>
-            <Checkbox id={id} task={task} />
-            <span>{task}</span>
+            <Checkbox id={id} task={task} done={done} />
+            <span className={done ? 'done' : undefined}>{task}</span>
+            <span className="delete" onClick={() => deleteTasks(id)}>
+              <FaTrash />
+            </span>
           </li>
         ))}
       </ul>
