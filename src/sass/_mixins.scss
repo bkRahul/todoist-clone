@@ -2,6 +2,22 @@
 ------------Mixins------------------
 */
 
+@mixin animate($attr, $time) {
+  -webkit-transition: $attr $time ease;
+  -moz-transition: $attr $time ease;
+  -ms-transition: $attr $time ease;
+  -o-transition: $attr $time ease;
+  transition: $attr $time ease;
+}
+
+@mixin transform($val) {
+  -webkit-transform: $val;
+  -moz-transform: $val;
+  -ms-transform: $val;
+  -o-transform: $val;
+  transform: $val;
+}
+
 @mixin box-overlay() {
   -webkit-box-shadow: $generic-box-shadow;
   box-shadow: $generic-box-shadow;
