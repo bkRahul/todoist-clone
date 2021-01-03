@@ -6,6 +6,7 @@ import { collatedTasksExist } from '../../helpers';
 
 export const useTasks = (selectedProject) => {
   const [tasks, setTasks] = useState([]);
+  const [tasksLoading, setTasksLoading] = useState(true);
 
   useEffect(() => {
     let unsubscribe = firebase
@@ -63,10 +64,11 @@ export const useTasks = (selectedProject) => {
             )
           : newTasks
       );
+      setTasksLoading(false);
     });
 
     return () => unsubscribe();
   }, [selectedProject]);
 
-  return { tasks };
+  return { tasks, tasksLoading };
 };
