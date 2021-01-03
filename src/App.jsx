@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { Content } from './components/layout/Content/Content';
+import { Header } from './components/layout/Header/Header';
 import { ProjectsProvider, SelectedProjectProvider } from './context';
 import { TasksProvider } from './context/tasks-context';
 import WithLayout from './hoc/Layout/WithLayout';
+import { useLocalStorage } from './hooks/useLocalStorage/localStorage';
 //import { addCollectionsAndDocs } from './helpers/firebase';
 
 // const projectData = [
@@ -39,7 +41,7 @@ import WithLayout from './hoc/Layout/WithLayout';
 //   },
 // ];
 
-export const App = () => {
+export const App = ({ darkModeDefault = false }) => {
   // useEffect(() => {
   //   addCollectionsAndDocs(
   //     'projects',
@@ -51,12 +53,22 @@ export const App = () => {
   //     }))
   //   );
   // }, []);
+
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [darkMode, setDarkMode] = useLocalStorage('darkmode', darkModeDefault);
+
   return (
     <ProjectsProvider>
       <SelectedProjectProvider>
         <TasksProvider>
-          <WithLayout>
-            <Content />
+          <WithLayout darkMode={darkMode}>
+            <Header
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              setShowSidebar={setShowSidebar}
+              showSidebar={showSidebar}
+            />
+            <Content showSidebar={showSidebar} />
           </WithLayout>
         </TasksProvider>
       </SelectedProjectProvider>

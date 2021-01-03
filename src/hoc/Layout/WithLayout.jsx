@@ -1,21 +1,14 @@
 import React from 'react';
-import { Header } from '../../components/layout/Header/Header';
-import { useLocalStorage } from '../../hooks/useLocalStorage/localStorage';
 import withSpinner from '../Spinner/withSpinner';
 
-const WithLayout = ({ darkModeDefault = false, children }) => {
-  const [darkMode, setDarkMode] = useLocalStorage('darkmode', darkModeDefault);
-
+const WithLayout = ({ darkMode, children }) => {
   return (
-    <div className="App">
-      <main
-        data-testid="application"
-        className={darkMode ? 'darkmode' : undefined}
-      >
-        <Header darkMode={darkMode} setDarkMode={setDarkMode} />
-        <main>{children}</main>
-      </main>
-    </div>
+    <main
+      data-testid="application"
+      className={darkMode ? 'darkmode' : undefined}
+    >
+      <main>{children}</main>
+    </main>
   );
 };
 
