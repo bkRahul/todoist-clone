@@ -25,6 +25,7 @@ export const Header = ({
             onClick={() => {
               setShowSidebar(!showSidebar);
             }}
+            style={{ width: 'max-content' }}
           >
             <span className="mobile-menu">
               {showSidebar ? <FaTimes /> : <FaBars />}

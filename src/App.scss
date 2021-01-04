@@ -185,6 +185,8 @@ header {
   @include mq('768px') {
     padding-left: 0;
     width: auto;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.1) 0px 4px 11px;
   }
 
   ul {
@@ -568,13 +570,9 @@ header {
   &__project,
   &__date {
     cursor: pointer;
-    float: right;
-    color: gray;
+    font-size: 20px;
+    color: #db4c3f;
     margin: 20px 10px;
-  }
-
-  &__project {
-    margin-right: 0;
   }
 
   &__content {
@@ -642,10 +640,15 @@ header {
 /* Task Date
         ============================================ */
 .task-date {
-  @include box-overlay();
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.1) 0px 4px 11px;
+  position: absolute;
+  z-index: 1;
+  top: 142px;
+  border-radius: 3px;
   background-color: #fff;
   width: 200px;
-  right: 0;
+  right: 52px;
 
   &__list li {
     @include task-item();
