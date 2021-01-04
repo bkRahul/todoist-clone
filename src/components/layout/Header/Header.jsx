@@ -1,24 +1,36 @@
 import React, { useState } from 'react';
-import { FaMoon, FaSun, FaPlus } from 'react-icons/fa';
+import { FaMoon, FaSun, FaPlus, FaBars } from 'react-icons/fa';
 import logo from '../../../assets/images/logo.png';
 import { AddTask } from '../../Tasks/AddTask/AddTask';
 
-export const Header = ({ darkMode, setDarkMode }) => {
+export const Header = ({
+  darkMode,
+  setDarkMode,
+  setShowSidebar,
+  showSidebar,
+}) => {
   const [showMain, setShowMain] = useState(false);
   const [showQuickAddTask, setShowQuickAddTask] = useState(false);
-  const logoContainer = {
-    display: 'flex',
-    alignItems: 'center',
-  };
+
   const logoText = {
     color: '#fff',
+    marginLeft: '10px',
     fontWeight: '500',
-    marginLeft: '12px',
   };
+  console.log(showSidebar);
   return (
     <header className="header" data-testid="header">
       <nav>
-        <div className="logo" style={logoContainer}>
+        <div className={showSidebar ? 'menu' : 'menu sidebar-closed'}>
+          <span
+            onClick={() => {
+              setShowSidebar(!showSidebar);
+            }}
+          >
+            <FaBars />
+          </span>
+        </div>
+        <div className="logo">
           <img src={logo} alt="logo" />
           <p style={logoText}>Todoist Clone</p>
         </div>

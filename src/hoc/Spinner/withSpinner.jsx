@@ -6,21 +6,21 @@ import './withSpinner.scss';
 
 const withSpinner = (WrappedComponent) => {
   const Spinner = ({ ...props }) => {
-    const { projects } = useProjectsValue();
-    const { tasks } = useTasksValue();
+    const { projectsLoading } = useProjectsValue();
+    const { tasksLoading } = useTasksValue();
     const [darkMode] = useLocalStorage('darkmode');
 
     const [isLoading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
-
+    console.log(projectsLoading, tasksLoading);
     useEffect(() => {
-      projects.length === 0 && setMessage('Loading Projects...');
-      tasks.length === 0 && setMessage('Loading Tasks..');
-      if (projects.length !== 0 && tasks.length !== 0) {
+      projectsLoading && setMessage('Loading Projects...');
+      tasksLoading && setMessage('Loading Tasks..');
+      if (!projectsLoading && !tasksLoading) {
         setLoading(false);
         setMessage('');
       }
-    }, [projects, tasks]);
+    }, [projectsLoading, tasksLoading]);
     return isLoading ? (
       <div
         className={darkMode ? 'loader-container darkMode' : 'loader-container'}

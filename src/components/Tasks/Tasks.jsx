@@ -56,19 +56,21 @@ export const Tasks = () => {
       className={tasks.length !== 0 ? 'tasks' : 'tasks tasks--empty'}
       data-testid="tasks"
     >
-      <h2 data-testid="project-name">{projectName}</h2>
-      <ul className="tasks__list">
-        {tasks.map(({ id, task, done }) => (
-          <li key={id}>
-            <Checkbox id={id} task={task} done={done} />
-            <span className={done ? 'done' : undefined}>{task}</span>
-            <span className="delete" onClick={() => deleteTasks(id)}>
-              <FaTrash />
-            </span>
-          </li>
-        ))}
-      </ul>
-      <AddTask />
+      <section style={{ margin: '0 auto', maxWidth: ' 800px' }}>
+        <h2 data-testid="project-name">{projectName}</h2>
+        <ul className="tasks__list">
+          {tasks.map(({ id, task, done }) => (
+            <li key={id}>
+              <Checkbox id={id} task={task} done={done} />
+              <span className={done ? 'done' : undefined}>{task}</span>
+              <span className="delete" onClick={() => deleteTasks(id)}>
+                <FaTrash />
+              </span>
+            </li>
+          ))}
+        </ul>
+        <AddTask />
+      </section>
     </div>
   );
 };

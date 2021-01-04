@@ -22,8 +22,6 @@ header {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   height: 50px;
   z-index: 400;
-  position: fixed;
-  top: 0;
   width: 100%;
 
   @include mq('900px') {
@@ -35,23 +33,35 @@ header {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
-    grid-column-gap: 0px;
+    grid-column-gap: 10px;
     grid-row-gap: 0px;
-    max-width: 922px;
     margin: auto;
+    max-width: 1330px;
     height: 50px;
 
     p,
     li {
       color: white;
     }
+    div {
+      &.menu {
+        grid-area: 1 / 1;
+        color: #fff;
+        font-size: 20px;
+        span {
+          cursor: pointer;
+          padding: 5px 10px 0 5px;
+        }
+      }
+    }
 
     div {
       &.logo {
+        @extend %d-flex;
         padding-left: 8px;
-        grid-area: 1 / 1;
+        grid-area: 1 / 2;
 
         img {
           width: 24px;
@@ -59,7 +69,7 @@ header {
       }
 
       &.settings {
-        grid-area: 1 / 2;
+        grid-area: 1 / 3;
         text-align: right;
 
         ul {
@@ -115,21 +125,42 @@ header {
   }
 }
 
+/* Main Content
+        ============================================ */
+.content {
+  &.sidebar--closed {
+    .sidebar {
+      @include transform(translateX(-100%));
+    }
+    .tasks {
+      margin-left: 0;
+    }
+  }
+}
+
 /* Sidebar
         ============================================ */
 .sidebar {
   @include no-select();
-  padding-left: 28px;
-  height: calc(100vh);
-  padding-top: 74px;
-  overflow-x: hidden;
-  overflow-y: auto;
   border-right: $generic-border;
+  max-width: 300px;
+  min-width: 180px;
+  @include animate(transform, 320ms);
+
+  width: 305px;
+  height: calc(100vh - 39px);
+  padding-top: 30px;
+  padding-left: 35px;
+  position: fixed;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
   background-color: #fafafa;
 
-  // @include mq("900px") {
-  //   display: none;
-  // }
+  @include mq('900px') {
+    padding-left: 0;
+  }
+
   ul {
     margin-bottom: 1em;
   }
@@ -288,6 +319,7 @@ header {
       cursor: pointer;
       line-height: 1;
       font-size: 15px;
+      border-radius: 4px 0 0 4px;
       padding: 10px 0 10px 15px;
 
       span {
@@ -361,29 +393,21 @@ header {
   }
 }
 
-/* Main Content
-        ============================================ */
-.content {
-  display: grid;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  grid-template-columns: 1fr 2fr;
-  max-width: 922px;
-  margin: auto;
-}
-
 /* Tasks
         ============================================ */
 .tasks {
-  background-color: white;
-  border-right: $generic-border;
-  min-height: calc(100vh);
+  height: 100vh;
   vertical-align: top;
   padding-left: 40px;
   padding-right: 40px;
-  padding-top: 80px;
   padding-bottom: 84px;
+  min-height: 380px;
+  background-color: #fff;
+  margin-left: 305px;
+  position: relative;
+  overflow: hidden auto;
+  -webkit-transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   &.tasks--empty {
     background-image: url('./assets/images/tasks_placeholder.png');
@@ -397,9 +421,16 @@ header {
   // }
 
   h2 {
+    display: -webkit-box;
+    background-color: #fff;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 40px 55px 20px 0;
+    width: 100%;
     font-size: 20px;
-    font-weight: normal;
-    margin: 0 30px 20px 0;
+    font-weight: 700;
   }
 
   .add-task {
@@ -437,12 +468,12 @@ header {
         ============================================ */
 .task-overlay {
   background: rgba(102, 102, 102, 0.5);
-  position: absolute;
+  position: fixed;
   margin: auto;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  z-index: 98;
   -webkit-transition: opacity 0.2s ease-in;
   transition: opacity 0.2s ease-in;
   height: calc(100vh);
@@ -475,6 +506,7 @@ header {
     position: absolute;
     left: 50%;
     top: 50%;
+    z-index: 99;
     padding: 20px 30px;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);

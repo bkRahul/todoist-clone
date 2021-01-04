@@ -2,9 +2,9 @@ import React from 'react';
 import { Tasks } from '../../Tasks/Tasks';
 import { Sidebar } from '../Sidebar/Sidebar';
 
-export const Content = () => {
+export const Content = ({ showSidebar }) => {
   return (
-    <div className="content">
+    <div className={showSidebar ? 'content' : 'content sidebar--closed'}>
       <Sidebar />
       <Tasks />
     </div>
