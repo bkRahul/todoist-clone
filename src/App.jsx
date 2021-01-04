@@ -68,7 +68,10 @@ export const App = ({ darkModeDefault = false }) => {
               setShowSidebar={setShowSidebar}
               showSidebar={showSidebar}
             />
-            <Content showSidebar={showSidebar} />
+            <Content
+              showSidebar={showSidebar}
+              setShowSidebar={setShowSidebar}
+            />
           </WithLayout>
         </TasksProvider>
       </SelectedProjectProvider>
