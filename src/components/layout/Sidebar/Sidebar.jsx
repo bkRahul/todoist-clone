@@ -113,36 +113,42 @@ export const Sidebar = () => {
           projects={unarchiveProjects}
         />
       </ul>
-      <div
-        className="sidebar__middle"
-        data-testid="toggle-projects"
-        onClick={() => setShowArchivedProjects(!showArchivedProjects)}
-        onKeyDown={() => setShowArchivedProjects(!showArchivedProjects)}
-        role="button"
-        tabIndex={0}
-      >
-        <span>
-          <FaChevronDown
-            className={!showArchivedProjects ? 'hidden-projects' : undefined}
-          />
-        </span>
-        <h2>Archived Projects</h2>
-      </div>
-      <ul
-        className={
-          showArchivedProjects
-            ? 'sidebar__projects'
-            : 'sidebar__projects collapse'
-        }
-        data-testid="sidebar-projects"
-      >
-        <Projects
-          active={active}
-          setActive={setActive}
-          projects={archivedProjects}
-          projectType="archived"
-        />
-      </ul>
+      {archivedProjects.length !== 0 && (
+        <>
+          <div
+            className="sidebar__middle"
+            data-testid="toggle-projects"
+            onClick={() => setShowArchivedProjects(!showArchivedProjects)}
+            onKeyDown={() => setShowArchivedProjects(!showArchivedProjects)}
+            role="button"
+            tabIndex={0}
+          >
+            <span>
+              <FaChevronDown
+                className={
+                  !showArchivedProjects ? 'hidden-projects' : undefined
+                }
+              />
+            </span>
+            <h2>Archived Projects</h2>
+          </div>
+          <ul
+            className={
+              showArchivedProjects
+                ? 'sidebar__projects'
+                : 'sidebar__projects collapse'
+            }
+            data-testid="sidebar-projects"
+          >
+            <Projects
+              active={active}
+              setActive={setActive}
+              projects={archivedProjects}
+              projectType="archived"
+            />
+          </ul>
+        </>
+      )}
     </div>
   );
 };
