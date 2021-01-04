@@ -7,7 +7,7 @@ const WithLayout = ({ darkMode, children }) => {
       data-testid="application"
       className={darkMode ? 'darkmode' : undefined}
     >
-      <main>{children}</main>
+      <>{children}</>
     </main>
   );
 };

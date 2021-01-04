@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaMoon, FaSun, FaPlus, FaBars } from 'react-icons/fa';
+import { FaMoon, FaSun, FaPlus, FaBars, FaTimes } from 'react-icons/fa';
 import logo from '../../../assets/images/logo.png';
 import { AddTask } from '../../Tasks/AddTask/AddTask';
 
@@ -17,18 +17,22 @@ export const Header = ({
     marginLeft: '10px',
     fontWeight: '500',
   };
-  console.log(showSidebar);
   return (
     <header className="header" data-testid="header">
       <nav>
         <div className={showSidebar ? 'menu' : 'menu sidebar-closed'}>
-          <span
+          <div
             onClick={() => {
               setShowSidebar(!showSidebar);
             }}
           >
-            <FaBars />
-          </span>
+            <span className="mobile-menu">
+              {showSidebar ? <FaTimes /> : <FaBars />}
+            </span>
+            <span className="desktop-menu">
+              <FaBars />
+            </span>
+          </div>
         </div>
         <div className="logo">
           <img src={logo} alt="logo" />
