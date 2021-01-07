@@ -486,6 +486,9 @@ header {
     font-size: 14px;
     list-style-type: none;
     border-bottom: 1px solid #f0f0f0;
+    &:hover .delete {
+      visibility: visible;
+    }
     .checkTask {
       display: flex;
       cursor: pointer;
@@ -496,6 +499,7 @@ header {
       text-decoration: line-through;
     }
     .delete {
+      visibility: hidden;
       font-size: 15px;
       margin-left: auto;
       cursor: pointer;
