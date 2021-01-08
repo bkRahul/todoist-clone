@@ -18,9 +18,9 @@ export const Project = ({ project, setActive }) => {
       .doc(docId)
       .delete()
       .then(() => {
-        setProjects([...projects]);
         setSelectedProject('INBOX');
         setActive('inbox');
+        setProjects([...projects]);
       });
   };
 
@@ -42,7 +42,6 @@ export const Project = ({ project, setActive }) => {
     type === 'deleteProject' && deleteProject(project.docId);
     // type === 'renameProject' && renameProject(project.docID);
     type === 'archiveProject' && archiveProjectToggle(project.docId);
-    console.log(type);
   };
 
   const handleOutsideClick = useCallback(
@@ -116,30 +115,28 @@ export const Project = ({ project, setActive }) => {
       >
         <span className="sidebar__dot">&bull;</span>
         <span className="sidebar__project-name">{project.name}</span>
-        {/* <Dropdown
-          customClass="sidebar__project-menu"
-          select={<MdMoreHoriz />}
-          options={menuValues}
-          align="left"
-          clickHandler={(action) => {
-            clickAction(action.type);
-          }}
-        /> */}
-        <span className="sidebar__project-menu">
-          <MdMoreHoriz onClick={clickAction} />
+        <span
+          className="sidebar__project-menu"
+          data-testid="project-actions"
+          onClick={clickAction}
+          onKeyDown={clickAction}
+        >
+          <MdMoreHoriz />
         </span>
       </div>
       {isOpen ? (
         <div
-          data-testid="project-actions"
           className="sidebar__project-actions"
+          data-testid="project-actions-container"
           ref={drop}
         >
           {menuValues.map((item) => (
             <span
+              key={item.type}
+              data-testid={item.type}
               data-tooltip={
                 item?.name === 'Archive Project' && project?.archived
-                  ? 'Unarchive'
+                  ? (item.name = 'Unarchive Project')
                   : item.name
               }
               title={item.name}

@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import './App.scss';
 import { Content } from './components/layout/Content/Content';
 import { Header } from './components/layout/Header/Header';
-import { ProjectsProvider, SelectedProjectProvider } from './context';
-import { TasksProvider } from './context/tasks-context';
+import {
+  ProjectsProvider,
+  SelectedProjectProvider,
+  TasksProvider,
+} from './context';
 import WithLayout from './hoc/Layout/WithLayout';
 import { useLocalStorage } from './hooks/useLocalStorage/localStorage';
 //import { addCollectionsAndDocs } from './helpers/firebase';

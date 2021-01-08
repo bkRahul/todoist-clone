@@ -128,6 +128,7 @@ export const AddTask = ({
                       setShowMain(false)
                     : addTask() && setShowMain(false)
                 }
+                disabled={!task}
               >
                 Add Task
               </button>

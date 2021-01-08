@@ -20,11 +20,13 @@ export const Header = ({
   return (
     <header className="header" data-testid="header">
       <nav>
-        <div className={showSidebar ? 'menu' : 'menu sidebar-closed'}>
+        <div
+          className={showSidebar ? 'menu' : 'menu sidebar-closed'}
+          data-testid="show-sidebar"
+        >
           <div
-            onClick={() => {
-              setShowSidebar(!showSidebar);
-            }}
+            data-testid="toggle-sidebar"
+            onClick={() => setShowSidebar(!showSidebar)}
             style={{ width: 'max-content' }}
           >
             <span className="mobile-menu">
@@ -63,7 +65,11 @@ export const Header = ({
                 tabIndex={0}
                 onClick={() => setDarkMode(!darkMode)}
               >
-                {darkMode ? <FaSun /> : <FaMoon />}
+                {darkMode ? (
+                  <FaSun data-testid="sun-icon" />
+                ) : (
+                  <FaMoon data-testid="moon-icon" />
+                )}
               </button>
             </li>
           </ul>

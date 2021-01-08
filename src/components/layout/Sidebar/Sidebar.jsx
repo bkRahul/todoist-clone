@@ -117,7 +117,7 @@ export const Sidebar = () => {
         <>
           <div
             className="sidebar__middle"
-            data-testid="toggle-projects"
+            data-testid="toggle-archivedProjects"
             onClick={() => setShowArchivedProjects(!showArchivedProjects)}
             onKeyDown={() => setShowArchivedProjects(!showArchivedProjects)}
             role="button"
@@ -138,7 +138,7 @@ export const Sidebar = () => {
                 ? 'sidebar__projects'
                 : 'sidebar__projects collapse'
             }
-            data-testid="sidebar-projects"
+            data-testid="sidebar-archivedProjects"
           >
             <Projects
               active={active}

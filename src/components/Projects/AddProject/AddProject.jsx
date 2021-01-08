@@ -24,7 +24,7 @@ export const AddProject = ({ shouldShow = false, setActive }) => {
           userId: 'chtjuMWL3bEWyMN',
           archived: false,
         })
-        .then(function (docRef) {
+        .then((docRef) => {
           setProjects([...projects]);
         });
     // .catch(function (error) {
@@ -48,11 +48,10 @@ export const AddProject = ({ shouldShow = false, setActive }) => {
             className="add-project__name"
           />
           <button
-            onClick={() => {
-              addProject();
-            }}
+            onClick={() => addProject()}
             className="add-project__submit"
             data-testid="add-project-button"
+            disabled={!projectName}
           >
             Add Project
           </button>
