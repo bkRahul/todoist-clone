@@ -25,7 +25,9 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/index.js",
-      "!src/helpers/firebase"
+      "!src/helpers/firebase/index.js",
+      "!src/hooks/useProjects/projects.jsx",
+      "!src/hooks/useTasks/tasks.jsx"
     ],
     "coverageThreshold": {
       "global": {
