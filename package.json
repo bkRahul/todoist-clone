@@ -23,7 +23,9 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}"
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/index.js",
+      "!src/helpers/firebase"
     ],
     "coverageThreshold": {
       "global": {
