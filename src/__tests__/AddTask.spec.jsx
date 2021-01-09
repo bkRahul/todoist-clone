@@ -74,7 +74,7 @@ describe('<AddTask/>', () => {
       queryByTestId('add-task').classList.contains('add-task__main')
     ).toBeTruthy();
 
-    expect(queryByTestId('add-task__project')).toBeTruthy();
+    expect(queryByTestId('custom-dropdown')).toBeTruthy();
     expect(queryByTestId('add-task__date')).toBeTruthy();
   });
 
@@ -97,21 +97,24 @@ describe('<AddTask/>', () => {
 
   // task date dropdown is left
 
-  // it('renders the task date overlay ', () => {
-  //   const { queryByTestId, debug } = render(
-  //     <AddTask
-  //       showAddTaskMain={true}
-  //       shouldShowMain={false}
-  //       showQuickAddTask={false}
-  //       setShowQuickAddTask={jest.fn()}
-  //     />
-  //   );
-  //   debug();
-  //   fireEvent.click(queryByTestId('show-task-date-overlay'));
-  //   expect(
-  //     queryByTestId('add-task').classList.contains('add-task__main')
-  //   ).toBeTruthy();
-  // });
+  it('renders the task date overlay on click', () => {
+    const { queryByTestId, debug } = render(
+      <AddTask
+        showAddTaskMain={true}
+        shouldShowMain={false}
+        showQuickAddTask={false}
+        setShowQuickAddTask={jest.fn()}
+      />
+    );
+    fireEvent.click(queryByTestId('show-main-add-task'));
+
+    expect(
+      queryByTestId('add-task').classList.contains('add-task__main')
+    ).toBeTruthy();
+
+    fireEvent.click(queryByTestId('add-task__date'));
+    //    expect(queryByTestId('task-date-overlay')).toBeTruthy();
+  });
 
   it('closes the <AddTask/> main when cancel is clicked', () => {
     const { queryByTestId } = render(
@@ -264,7 +267,7 @@ describe('<AddTask/>', () => {
       selectedProject: '1',
     }));
 
-    const { queryByTestId } = render(
+    const { queryByTestId, debug } = render(
       <AddTask
         showAddTaskMain={true}
         shouldShowMain={false}
@@ -282,11 +285,8 @@ describe('<AddTask/>', () => {
     });
     expect(queryByTestId('add-task-content').value).toBe('I am a new Task ');
 
-    expect(queryByTestId('add-task__project')).toBeTruthy();
-
-    fireEvent.click(queryByTestId('add-task__project'));
-    expect(queryByTestId('add-task__project--container')).toBeTruthy();
-    //api calls left where options.map have to write test cases for that
+    expect(queryByTestId('custom-dropdown')).toBeTruthy();
+    fireEvent.click(queryByTestId('custom-dropdown-button'));
 
     fireEvent.click(queryByTestId('add-task-button'));
   });

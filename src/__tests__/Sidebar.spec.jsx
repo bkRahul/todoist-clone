@@ -11,7 +11,14 @@ jest.mock('../context', () => ({
   useProjectsValue: jest.fn(() => ({
     projects: [
       {
-        name: 'Office',
+        name: '🎯 React Basics',
+        archived: false,
+        projectId: '1',
+        userId: 'chtjuMWL3bEWyMN',
+      },
+      {
+        name: '🎯 React Basics',
+        archived: true,
         projectId: '1',
         userId: 'chtjuMWL3bEWyMN',
       },
@@ -116,27 +123,67 @@ describe('<Sidebar />', () => {
     expect(queryByTestId('next_7').classList.contains('active')).toBeTruthy();
   });
 
-  it('toggles the Project section on click', () => {
+  it('toggles the Projects section on click', () => {
     const { queryByTestId } = render(<Sidebar />);
 
     expect(queryByTestId('toggle-projects')).toBeTruthy();
 
     fireEvent.click(queryByTestId('toggle-projects'));
-    expect(queryByTestId('sidebar-projects')).toBeFalsy();
+    expect(
+      queryByTestId('sidebar-projects').classList.contains('collapse')
+    ).toBeTruthy();
 
     fireEvent.click(queryByTestId('toggle-projects'));
-    expect(queryByTestId('sidebar-projects')).toBeTruthy();
+    expect(
+      queryByTestId('sidebar-projects').classList.contains('collapse')
+    ).toBeFalsy();
   });
 
-  it('toggles the Project section on keyDown', () => {
+  it('toggles the Projects section on key down', () => {
     const { queryByTestId } = render(<Sidebar />);
 
     expect(queryByTestId('toggle-projects')).toBeTruthy();
 
     fireEvent.keyDown(queryByTestId('toggle-projects'));
-    expect(queryByTestId('sidebar-projects')).toBeFalsy();
+    expect(
+      queryByTestId('sidebar-projects').classList.contains('collapse')
+    ).toBeTruthy();
 
     fireEvent.keyDown(queryByTestId('toggle-projects'));
-    expect(queryByTestId('sidebar-projects')).toBeTruthy();
+    expect(
+      queryByTestId('sidebar-projects').classList.contains('collapse')
+    ).toBeFalsy();
+  });
+
+  it('toggles the Archived Projects section on click', () => {
+    const { queryByTestId } = render(<Sidebar />);
+
+    expect(queryByTestId('toggle-archivedProjects')).toBeTruthy();
+
+    fireEvent.click(queryByTestId('toggle-archivedProjects'));
+    expect(
+      queryByTestId('sidebar-archivedProjects').classList.contains('collapse')
+    ).toBeFalsy();
+
+    fireEvent.click(queryByTestId('toggle-archivedProjects'));
+    expect(
+      queryByTestId('sidebar-archivedProjects').classList.contains('collapse')
+    ).toBeTruthy();
+  });
+
+  it('toggles the Archived Projects section on key down', () => {
+    const { queryByTestId } = render(<Sidebar />);
+
+    expect(queryByTestId('toggle-archivedProjects')).toBeTruthy();
+
+    fireEvent.keyDown(queryByTestId('toggle-archivedProjects'));
+    expect(
+      queryByTestId('sidebar-archivedProjects').classList.contains('collapse')
+    ).toBeFalsy();
+
+    fireEvent.keyDown(queryByTestId('toggle-archivedProjects'));
+    expect(
+      queryByTestId('sidebar-archivedProjects').classList.contains('collapse')
+    ).toBeTruthy();
   });
 });

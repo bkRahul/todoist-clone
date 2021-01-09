@@ -18,8 +18,8 @@ export const Project = ({ project, setActive }) => {
       .doc(docId)
       .delete()
       .then(() => {
-        setSelectedProject('INBOX');
         setActive('inbox');
+        setSelectedProject('INBOX');
         setProjects([...projects]);
       });
   };
@@ -31,9 +31,9 @@ export const Project = ({ project, setActive }) => {
       .doc(docId)
       .update({ archived: !project.archived })
       .then(() => {
-        setProjects([...projects]);
-        setSelectedProject('INBOX');
         setActive('inbox');
+        setSelectedProject('INBOX');
+        setProjects([...projects]);
       });
   };
 
@@ -115,6 +115,15 @@ export const Project = ({ project, setActive }) => {
       >
         <span className="sidebar__dot">&bull;</span>
         <span className="sidebar__project-name">{project.name}</span>
+        {/* <Dropdown
+          customClass="sidebar__project-menu"
+          select={<MdMoreHoriz />}
+          options={menuValues}
+          align="left"
+          clickHandler={(action) => {
+            clickAction(action.type);
+          }}
+        /> */}
         <span
           className="sidebar__project-menu"
           data-testid="project-actions"

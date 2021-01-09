@@ -76,6 +76,9 @@
   white-space: nowrap;
   border-radius: 3px !important;
   cursor: pointer;
+  &:disabled {
+    opacity: 0.6;
+  }
 }
 
 @mixin cancel() {

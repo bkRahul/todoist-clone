@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
-import { useSelectedProjectValue } from '../context';
+import { render, cleanup, fireEvent } from '@testing-library/react';
+import { useSelectedProjectValue, useTasksValue } from '../context';
 import { Tasks } from '../components/Tasks/Tasks';
+import { useTasks } from '../hooks/useTasks/tasks';
 
 beforeEach(cleanup); //clean the DOM
 
@@ -13,26 +14,6 @@ jest.mock('../context', () => ({
       {
         name: '🎯 React Basics',
         projectId: '1',
-        userId: 'chtjuMWL3bEWyMN',
-      },
-      {
-        name: '🎷 Chat App',
-        projectId: '2',
-        userId: 'chtjuMWL3bEWyMN',
-      },
-      {
-        name: '🐶 Trello Clone',
-        projectId: '3',
-        userId: 'chtjuMWL3bEWyMN',
-      },
-      {
-        name: '🛒 React Ecomm',
-        projectId: '4',
-        userId: 'chtjuMWL3bEWyMN',
-      },
-      {
-        name: '🎲 Nodejs Learn',
-        projectId: '5',
         userId: 'chtjuMWL3bEWyMN',
       },
     ],
@@ -62,7 +43,7 @@ describe('<Tasks/>', () => {
     jest.clearAllMocks();
   });
 
-  it('renders the <Tasks /> component', () => {
+  it('renders the <Tasks /> component with project title Inbox', () => {
     useSelectedProjectValue.mockImplementation(() => ({
       selectedProject: 'INBOX',
       setSelectedProject: jest.fn(() => 'INBOX'),
@@ -73,7 +54,19 @@ describe('<Tasks/>', () => {
     expect(queryByTestId('project-name').textContent).toBe('Inbox');
   });
 
-  it('renders the <Tasks /> component with title 🎯 React Basics', () => {
+  it('renders the <Tasks /> component with no tasks', () => {
+    useTasks.mockImplementation(() => ({
+      tasks: [],
+    }));
+    const { queryByTestId } = render(<Tasks />);
+
+    expect(queryByTestId('tasks')).toBeTruthy();
+    expect(
+      queryByTestId('tasks').classList.contains('tasks--empty')
+    ).toBeTruthy();
+  });
+
+  it('renders the <Tasks /> component with project title 🎯 React Basics', () => {
     useSelectedProjectValue.mockImplementation(() => ({
       selectedProject: '1',
       setSelectedProject: jest.fn(() => '1'),
@@ -85,7 +78,7 @@ describe('<Tasks/>', () => {
     expect(document.title).toBe('🎯 React Basics: Todoist');
   });
 
-  it('renders the <Tasks /> component with collated title Next Week', () => {
+  it('renders the <Tasks /> component with collated project title Next Week', () => {
     useSelectedProjectValue.mockImplementation(() => ({
       selectedProject: 'NEXT_7_DAYS',
       setSelectedProject: jest.fn(() => 'NEXT_7_DAYS'),
@@ -95,5 +88,68 @@ describe('<Tasks/>', () => {
     expect(queryByTestId('tasks')).toBeTruthy();
     expect(queryByTestId('project-name').textContent).toBe('Next Week');
     expect(document.title).toBe('Next Week: Todoist');
+  });
+
+  it('renders the <Tasks /> component with tasks from 🎯 React Basics', () => {
+    useSelectedProjectValue.mockImplementation(() => ({
+      selectedProject: '1',
+      setSelectedProject: jest.fn(() => '1'),
+    }));
+
+    useTasks.mockImplementation(() => ({
+      tasks: [
+        {
+          id: '81jDjygQhjQEIoe8mqSi',
+          done: false,
+          date: '27/12/2020',
+          projectId: '1',
+          task: 'some task',
+          userId: 'chtjuMWL3bEWyMN',
+        },
+      ],
+    }));
+    const { queryByTestId, getByText } = render(<Tasks />);
+
+    expect(queryByTestId('tasks')).toBeTruthy();
+    expect(queryByTestId('project-name').textContent).toBe('🎯 React Basics');
+    expect(getByText('some task')).toBeTruthy();
+  });
+
+  it('renders the <Tasks /> component with a done task from 🎯 React Basics', () => {
+    useTasks.mockImplementation(() => ({
+      tasks: [
+        {
+          id: '81jDjygQhjQEIoe8mqSi',
+          done: true,
+          date: '27/12/2020',
+          projectId: '1',
+          task: 'some task',
+          userId: 'chtjuMWL3bEWyMN',
+        },
+      ],
+    }));
+
+    const { queryByTestId, getByText } = render(<Tasks />);
+
+    expect(queryByTestId('tasks')).toBeTruthy();
+    expect(queryByTestId('project-name').textContent).toBe('🎯 React Basics');
+    expect(getByText('some task')).toBeTruthy();
+    fireEvent.click(queryByTestId('delete-task'));
+  });
+
+  it('renders the <Tasks /> component with tasks from 🎯 React Basics and deletes a task', () => {
+    useSelectedProjectValue.mockImplementation(() => ({
+      selectedProject: '1',
+      setSelectedProject: jest.fn(() => '1'),
+    }));
+    //    const deleteTasks = jest.fn();
+    const { queryByTestId, getByText } = render(<Tasks />);
+
+    expect(queryByTestId('tasks')).toBeTruthy();
+    expect(queryByTestId('project-name').textContent).toBe('🎯 React Basics');
+    expect(getByText('some task')).toBeTruthy();
+    fireEvent.click(queryByTestId('delete-task'));
+    //    expect(deleteTasks).toHaveBeenCalledTimes(1);
+    //    expect(deleteTasks).toHaveBeenCalledWith(true);
   });
 });

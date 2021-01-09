@@ -17,23 +17,8 @@ export const Tasks = () => {
   let projectName = '';
 
   const deleteTasks = (docId) => {
-    firebase
-      .firestore()
-      .collection('tasks')
-      .doc(docId)
-      .delete()
-      .then(() => {
-        //        setProjects([...tasks]);
-      });
+    firebase.firestore().collection('tasks').doc(docId).delete();
   };
-
-  // console.log("tasks===", tasks);
-  // console.log("projects===", projects);
-  // console.log("selectedProject ===", selectedProject);
-  // console.log(
-  //   "!collatedTasksExist(selectedProject) ===",
-  //   !collatedTasksExist(selectedProject)
-  // );
 
   //if projects does not exist in INBOX NEXT7DAYS or TODAY
   if (projects && selectedProject && !collatedTasksExist(selectedProject)) {
@@ -62,8 +47,17 @@ export const Tasks = () => {
           {tasks.map(({ id, task, done }) => (
             <li key={id}>
               <Checkbox id={id} task={task} done={done} />
-              <span className={done ? 'done' : undefined}>{task}</span>
-              <span className="delete" onClick={() => deleteTasks(id)}>
+              <span
+                data-testid="task-name"
+                className={done ? 'done' : undefined}
+              >
+                {task}
+              </span>
+              <span
+                className="delete"
+                data-testid="delete-task"
+                onClick={() => deleteTasks(id)}
+              >
                 <FaTrash />
               </span>
             </li>

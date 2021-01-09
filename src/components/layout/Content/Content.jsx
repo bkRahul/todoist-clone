@@ -11,6 +11,7 @@ export const Content = ({ showSidebar, setShowSidebar }) => {
       {showSidebar && (
         <div
           className="mobile-overlay"
+          data-testid="sidebar-overlay"
           onClick={() => {
             setShowSidebar(!showSidebar);
           }}

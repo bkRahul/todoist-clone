@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useProjectsValue } from '../../context';
-import { useTasksValue } from '../../context/tasks-context';
+import { useProjectsValue, useTasksValue } from '../../context';
 import { useLocalStorage } from '../../hooks/useLocalStorage/localStorage';
 import './withSpinner.scss';
 

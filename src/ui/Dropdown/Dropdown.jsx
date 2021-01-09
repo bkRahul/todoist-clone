@@ -48,9 +48,13 @@ export const Dropdown = ({
   }, [handleOutsideClick, handleKeyUp]);
 
   return (
-    <div className={`custom-dropdown ${customClass}`} ref={drop}>
+    <div
+      data-testid="custom-dropdown"
+      className={`custom-dropdown ${customClass}`}
+      ref={drop}
+    >
       <button
-        data-testid={customClass}
+        data-testid="custom-dropdown-button"
         type="button"
         onClick={() => setIsOpen(!isOpen)}
       >

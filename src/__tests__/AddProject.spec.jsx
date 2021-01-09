@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, cleanup, fireEvent } from '@testing-library/react';
 import { AddProject } from '../components/Projects/AddProject/AddProject';
+import { useSelectedProjectValue, useProjectsValue } from '../context';
 
 beforeEach(cleanup); //clean the DOM
 
@@ -48,6 +49,8 @@ jest.mock('../context', () => ({
     ],
     setProjects: jest.fn(),
   })),
+  useSelectedProjectValue: jest.fn(() => ({ selectedProject: '1' })),
+  setSelectedProject: jest.fn(() => '1'),
 }));
 
 describe('<AddProject />', () => {
@@ -74,7 +77,14 @@ describe('<AddProject />', () => {
   });
 
   it('renders the <AddProject /> component and adds Project on Click', () => {
-    const { queryByTestId } = render(<AddProject shouldShow={true} />);
+    const setActive = jest.fn();
+    useSelectedProjectValue.mockImplementation(() => ({
+      selectedProject: '1',
+      setSelectedProject: jest.fn(() => '1'),
+    }));
+    const { queryByTestId } = render(
+      <AddProject setActive={setActive} shouldShow={true} />
+    );
     expect(queryByTestId('add-project-container')).toBeTruthy();
 
     fireEvent.change(queryByTestId('project-name'), {
@@ -85,30 +95,32 @@ describe('<AddProject />', () => {
     fireEvent.click(queryByTestId('add-project-button'));
   });
 
-  //   it('renders the <AddProject /> component and fails to add a project', () => {
-  //     useProjectsValue.mockImplementation(() => ({
-  //       projects: [
-  //         {
-  //           name: '🎯 Failed Test',
-  //           projectId: '1',
-  //           userId: 'chtjuMWL3bEWyMN',
-  //         },
-  //       ],
-  //       setProjects: jest.fn(),
-  //     }));
+  it('renders the <AddProject /> component and fails to add a project', () => {
+    const setActive = jest.fn();
+    useProjectsValue.mockImplementation(() => ({
+      projects: [
+        {
+          name: '🎯 Failed Test',
+          projectId: '1',
+          userId: 'chtjuMWL3bEWyMN',
+        },
+      ],
+      setProjects: jest.fn(),
+    }));
 
-  //     const { queryByTestId, debug } = render(<AddProject shouldShow={true} />);
-  //     debug();
+    const { queryByTestId } = render(
+      <AddProject setActive={setActive} shouldShow={true} />
+    );
 
-  //     expect(queryByTestId('add-project-container')).toBeTruthy();
+    expect(queryByTestId('add-project-container')).toBeTruthy();
 
-  // fireEvent.change(queryByTestId('project-name'), {
-  //   target: { value: 'I am a new Project ' },
-  // });
-  // expect(queryByTestId('project-name').value).toBe('I am a new Project ');
+    fireEvent.change(queryByTestId('project-name'), {
+      target: { value: 'I am a new Project ' },
+    });
+    expect(queryByTestId('project-name').value).toBe('I am a new Project ');
 
-  //     fireEvent.click(queryByTestId('add-project-button'));
-  //   });
+    fireEvent.click(queryByTestId('add-project-button'));
+  });
 
   it('closes the <AddProject /> modal when cancel is clicked', () => {
     const { queryByTestId } = render(<AddProject shouldShow />);

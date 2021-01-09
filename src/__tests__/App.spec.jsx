@@ -18,15 +18,6 @@ beforeEach(() => {
 
 describe('<App />', () => {
   it('renders the application', () => {
-    const { queryByTestId } = render(<App />);
-    expect(queryByTestId('application')).toBeTruthy();
-  });
-
-  it('renders the application in dark mode', () => {
-    const { queryByTestId } = render(<App darkModeDefault />);
-    expect(queryByTestId('application')).toBeTruthy();
-    expect(
-      queryByTestId('application').classList.contains('darkmode')
-    ).toBeTruthy();
+    const { queryByTestId, debug } = render(<App />);
   });
 });
