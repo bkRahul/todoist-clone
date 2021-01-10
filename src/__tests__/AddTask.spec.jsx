@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import { AddTask } from '../components/Tasks/AddTask/AddTask';
 import { useSelectedProjectValue } from '../context';
 
@@ -78,27 +78,8 @@ describe('<AddTask/>', () => {
     expect(queryByTestId('add-task__date')).toBeTruthy();
   });
 
-  // it('renders the project list dropdown on click', () => {
-  //   const { queryByTestId } = render(
-  //     <AddTask
-  //       showAddTaskMain={true}
-  //       shouldShowMain={false}
-  //       showQuickAddTask={false}
-  //       setShowQuickAddTask={jest.fn()}
-  //     />
-  //   );
-
-  //   fireEvent.click(queryByTestId('show-main-add-task'));
-  //   fireEvent.click(queryByTestId('add-task__project'));
-  //   // expect(
-  //   //   queryByTestId('add-task').classList.contains('add-task__main')
-  //   // ).toBeTruthy();
-  // });
-
-  // task date dropdown is left
-
   it('renders the task date overlay on click', () => {
-    const { queryByTestId, debug } = render(
+    const { queryByTestId } = render(
       <AddTask
         showAddTaskMain={true}
         shouldShowMain={false}
@@ -113,7 +94,6 @@ describe('<AddTask/>', () => {
     ).toBeTruthy();
 
     fireEvent.click(queryByTestId('add-task__date'));
-    //    expect(queryByTestId('task-date-overlay')).toBeTruthy();
   });
 
   it('closes the <AddTask/> main when cancel is clicked', () => {
@@ -160,7 +140,7 @@ describe('<AddTask/>', () => {
     //    expect(queryByTestId('add-task')).toBeFalsy();
   });
 
-  it('renders <AddTask /> and adds task to INBOX', () => {
+  it('renders <AddTask /> and adds task to INBOX', async () => {
     //mock setShowQuickAddTask function
     const showQuickAddTask = true;
     const setShowQuickAddTask = jest.fn(() => !showQuickAddTask);
@@ -179,22 +159,27 @@ describe('<AddTask/>', () => {
 
     fireEvent.click(queryByTestId('show-main-add-task'));
     expect(queryByTestId('add-task-content')).toBeTruthy();
-
-    fireEvent.change(queryByTestId('add-task-content'), {
-      target: { value: 'I am a new INBOX Task ' },
+    await waitFor(() => {
+      fireEvent.change(queryByTestId('add-task-content'), {
+        target: { value: 'I am a new INBOX Task ' },
+      });
     });
-    expect(queryByTestId('add-task-content').value).toBe(
-      'I am a new INBOX Task '
-    );
 
-    fireEvent.click(queryByTestId('add-task-button'));
-    expect(setShowQuickAddTask).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(queryByTestId('add-task-content').value).toBe(
+        'I am a new INBOX Task '
+      );
+    });
 
+    await waitFor(() => {
+      fireEvent.click(queryByTestId('add-task-button'));
+      expect(setShowQuickAddTask).toHaveBeenCalledTimes(1);
+    });
     //after clicking add-task-button --- add-task should close
     //    expect(queryByTestId('add-task')).toBeFalsy();
   });
 
-  it('renders <AddTask /> and adds task to TODAY', () => {
+  it('renders <AddTask /> and adds task to TODAY', async () => {
     //mock setShowQuickAddTask function
     const showQuickAddTask = true;
     const setShowQuickAddTask = jest.fn(() => !showQuickAddTask);
@@ -214,21 +199,28 @@ describe('<AddTask/>', () => {
     fireEvent.click(queryByTestId('show-main-add-task'));
     expect(queryByTestId('add-task-content')).toBeTruthy();
 
-    fireEvent.change(queryByTestId('add-task-content'), {
-      target: { value: 'I am a new TODAY Task ' },
+    await waitFor(() => {
+      fireEvent.change(queryByTestId('add-task-content'), {
+        target: { value: 'I am a new TODAY Task ' },
+      });
     });
-    expect(queryByTestId('add-task-content').value).toBe(
-      'I am a new TODAY Task '
-    );
 
-    fireEvent.click(queryByTestId('add-task-button'));
-    expect(setShowQuickAddTask).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(queryByTestId('add-task-content').value).toBe(
+        'I am a new TODAY Task '
+      );
+    });
+
+    await waitFor(() => {
+      fireEvent.click(queryByTestId('add-task-button'));
+      expect(setShowQuickAddTask).toHaveBeenCalledTimes(1);
+    });
 
     //after clicking add-task-button --- add-task should close
     //    expect(queryByTestId('add-task')).toBeFalsy();
   });
 
-  it('renders <AddTask /> and adds task to NEXT_7_DAYS', () => {
+  it('renders <AddTask /> and adds task to NEXT_7_DAYS', async () => {
     //mock setShowQuickAddTask function
     const showQuickAddTask = true;
     const setShowQuickAddTask = jest.fn(() => !showQuickAddTask);
@@ -247,27 +239,32 @@ describe('<AddTask/>', () => {
 
     fireEvent.click(queryByTestId('show-main-add-task'));
     expect(queryByTestId('add-task-content')).toBeTruthy();
-
-    fireEvent.change(queryByTestId('add-task-content'), {
-      target: { value: 'I am a new NEXT_7_DAYS Task ' },
+    await waitFor(() => {
+      fireEvent.change(queryByTestId('add-task-content'), {
+        target: { value: 'I am a new NEXT_7_DAYS Task ' },
+      });
     });
-    expect(queryByTestId('add-task-content').value).toBe(
-      'I am a new NEXT_7_DAYS Task '
-    );
 
-    fireEvent.click(queryByTestId('add-task-button'));
-    expect(setShowQuickAddTask).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(queryByTestId('add-task-content').value).toBe(
+        'I am a new NEXT_7_DAYS Task '
+      );
+    });
+    await waitFor(() => {
+      fireEvent.click(queryByTestId('add-task-button'));
+      expect(setShowQuickAddTask).toHaveBeenCalledTimes(1);
+    });
 
     //after clicking add-task-button --- add-task should close
     //    expect(queryByTestId('add-task')).toBeFalsy();
   });
 
-  it('renders <AddTask /> main and adds task with project', () => {
+  it('renders <AddTask /> main and adds task with project', async () => {
     useSelectedProjectValue.mockImplementation(() => ({
       selectedProject: '1',
     }));
 
-    const { queryByTestId, debug } = render(
+    const { queryByTestId } = render(
       <AddTask
         showAddTaskMain={true}
         shouldShowMain={false}
@@ -280,15 +277,21 @@ describe('<AddTask/>', () => {
     expect(queryByTestId('add-task')).toBeTruthy();
     expect(queryByTestId('add-task-content')).toBeTruthy();
 
-    fireEvent.change(queryByTestId('add-task-content'), {
-      target: { value: 'I am a new Task ' },
+    await waitFor(() => {
+      fireEvent.change(queryByTestId('add-task-content'), {
+        target: { value: 'I am a new Task ' },
+      });
     });
-    expect(queryByTestId('add-task-content').value).toBe('I am a new Task ');
 
-    expect(queryByTestId('custom-dropdown')).toBeTruthy();
-    fireEvent.click(queryByTestId('custom-dropdown-button'));
+    await waitFor(() => {
+      expect(queryByTestId('add-task-content').value).toBe('I am a new Task ');
+      expect(queryByTestId('custom-dropdown')).toBeTruthy();
+    });
 
-    fireEvent.click(queryByTestId('add-task-button'));
+    await waitFor(() => {
+      fireEvent.click(queryByTestId('custom-dropdown-button'));
+      fireEvent.click(queryByTestId('add-task-button'));
+    });
   });
 
   it('renders <AddTask/> with the quick add task background overlay ', () => {
