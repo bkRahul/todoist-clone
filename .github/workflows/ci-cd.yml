@@ -7,8 +7,7 @@ on:
     branches: [master]
 
 jobs:
-  buildAndTest:
-    name: Build and Test
+  build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -52,5 +51,5 @@ jobs:
         env:
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-          github_token: ${{ secrets.ACTIONS_PERSONAL_ACCESS_TOKEN }}
+          github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
           repository: ${{ github.repository }}
