@@ -31,17 +31,12 @@ export const useTasks = (selectedProject) => {
 
     if (selectedProject && !collatedTasksExist(selectedProject)) {
       unsubscribe = unsubscribe.where('projectId', '==', selectedProject);
-      console.log(
-        'selectedProject === ID & !collated tasks =>>>>',
-        unsubscribe
-      );
     } else if (selectedProject === 'TODAY') {
       unsubscribe = unsubscribe.where(
         'date',
         '==',
         moment().format('DD/MM/YYYY')
       );
-      console.log('selectedProject === TODAY =>>>>', unsubscribe);
     } else if (selectedProject === 'INBOX' || selectedProject === 0) {
       unsubscribe = unsubscribe.where('date', '==', '');
       // console.log(

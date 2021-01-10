@@ -8,7 +8,6 @@ export const useProjects = () => {
   const [projectsLoading, setProjectsLoading] = useState(true);
 
   useEffect(() => {
-    //    console.log('inside use Projects Hook');
     firebase
       .firestore()
       .collection('projects')
@@ -23,7 +22,6 @@ export const useProjects = () => {
 
         //need to check to avoid infinite loop
         !isEqual(allProjects, projects) && setProjects(allProjects);
-        //        console.log(projects, allProjects);
       })
       .then(() => setProjectsLoading(false));
   }, [projects]);

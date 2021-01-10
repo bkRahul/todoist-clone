@@ -11,7 +11,6 @@ const withSpinner = (WrappedComponent) => {
 
     const [isLoading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
-    console.log(projectsLoading, tasksLoading);
     useEffect(() => {
       projectsLoading && setMessage('Loading Projects...');
       tasksLoading && setMessage('Loading Tasks..');
