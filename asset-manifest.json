@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/todoist-clone/static/css/main.ae72e18d.chunk.css",
+    "main.css": "/todoist-clone/static/css/main.9ce2eee2.chunk.css",
     "main.js": "/todoist-clone/static/js/main.03f6ff46.chunk.js",
     "main.js.map": "/todoist-clone/static/js/main.03f6ff46.chunk.js.map",
     "runtime-main.js": "/todoist-clone/static/js/runtime-main.3159f66c.js",
@@ -8,16 +8,16 @@
     "static/js/2.91d8f78b.chunk.js": "/todoist-clone/static/js/2.91d8f78b.chunk.js",
     "static/js/2.91d8f78b.chunk.js.map": "/todoist-clone/static/js/2.91d8f78b.chunk.js.map",
     "index.html": "/todoist-clone/index.html",
-    "precache-manifest.c70f1e8f8e2bae11063f4a7ffeda4964.js": "/todoist-clone/precache-manifest.c70f1e8f8e2bae11063f4a7ffeda4964.js",
+    "precache-manifest.0b9e7d4938b6c36f07f72eea804eed87.js": "/todoist-clone/precache-manifest.0b9e7d4938b6c36f07f72eea804eed87.js",
     "service-worker.js": "/todoist-clone/service-worker.js",
-    "static/css/main.ae72e18d.chunk.css.map": "/todoist-clone/static/css/main.ae72e18d.chunk.css.map",
+    "static/css/main.9ce2eee2.chunk.css.map": "/todoist-clone/static/css/main.9ce2eee2.chunk.css.map",
     "static/js/2.91d8f78b.chunk.js.LICENSE.txt": "/todoist-clone/static/js/2.91d8f78b.chunk.js.LICENSE.txt",
     "static/media/App.scss": "/todoist-clone/static/media/tasks_placeholder.f37d470b.png"
   },
   "entrypoints": [
     "static/js/runtime-main.3159f66c.js",
     "static/js/2.91d8f78b.chunk.js",
-    "static/css/main.ae72e18d.chunk.css",
+    "static/css/main.9ce2eee2.chunk.css",
     "static/js/main.03f6ff46.chunk.js"
   ]
 }
