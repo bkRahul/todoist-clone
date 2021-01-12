@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a4daf1d84bc545a3652f2631fcee9dbb",
+    "revision": "21df2aacb9cd58f2192371e816a99903",
     "url": "/todoist-clone/index.html"
   },
   {
-    "revision": "07d8c9f5039da7b8f854",
-    "url": "/todoist-clone/static/css/main.9ce2eee2.chunk.css"
+    "revision": "f6241f826fcaa5ffa29c",
+    "url": "/todoist-clone/static/css/main.77fe35d1.chunk.css"
   },
   {
     "revision": "157f6d9ae87fdc85a896",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/todoist-clone/static/js/2.91d8f78b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "07d8c9f5039da7b8f854",
-    "url": "/todoist-clone/static/js/main.03f6ff46.chunk.js"
+    "revision": "f6241f826fcaa5ffa29c",
+    "url": "/todoist-clone/static/js/main.daa331cb.chunk.js"
   },
   {
     "revision": "f09aa5a4a262bb08bbe1",
