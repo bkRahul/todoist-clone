@@ -295,6 +295,9 @@ header {
     max-height: 1000px;
     transition-duration: 290ms;
     transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    @include mq('768px') {
+      padding-left: 0;
+    }
     &.collapse {
       max-height: 0px;
     }

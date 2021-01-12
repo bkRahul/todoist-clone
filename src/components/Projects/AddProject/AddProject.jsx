@@ -47,21 +47,23 @@ export const AddProject = ({ shouldShow = false, setActive }) => {
             data-testid="project-name"
             className="add-project__name"
           />
-          <button
-            onClick={() => addProject()}
-            className="add-project__submit"
-            data-testid="add-project-button"
-            disabled={!projectName}
-          >
-            Add Project
-          </button>
-          <span
-            onClick={() => setShow(false)}
-            className="add-project__cancel"
-            data-testid="add-project-cancel"
-          >
-            Cancel
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <button
+              onClick={() => addProject()}
+              className="add-project__submit"
+              data-testid="add-project-button"
+              disabled={!projectName}
+            >
+              Add Project
+            </button>
+            <span
+              onClick={() => setShow(false)}
+              className="add-project__cancel"
+              data-testid="add-project-cancel"
+            >
+              Cancel
+            </span>
+          </div>
         </div>
       )}
       {!show && (
