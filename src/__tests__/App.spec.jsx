@@ -17,6 +17,9 @@ beforeEach(() => {
 });
 
 describe('<App />', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   it('renders the application', () => {
     const { queryByTestId, debug } = render(<App />);
   });

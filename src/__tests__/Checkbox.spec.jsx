@@ -19,6 +19,9 @@ jest.mock('../firebase', () => ({
 
 //group tests
 describe('<Checkbox />', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   it('renders the task checkbox', () => {
     const { queryByTestId } = render(
       <Checkbox id="1" task="Finish testing by Today" />
