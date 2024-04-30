@@ -580,6 +580,7 @@ header {
 
   &__project,
   &__date {
+    position: relative;
     cursor: pointer;
     font-size: 20px;
     color: #db4c3f;
@@ -655,11 +656,10 @@ header {
     rgba(0, 0, 0, 0.1) 0px 4px 11px;
   position: absolute;
   z-index: 1;
-  top: 142px;
   border-radius: 3px;
   background-color: #fff;
   width: 200px;
-  right: 52px;
+  right: 22px;
 
   &__list li {
     @include task-item();

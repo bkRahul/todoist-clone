@@ -103,11 +103,7 @@ export const AddTask = ({
               </div>
             </>
           )}
-          <TaskDateOverlay
-            setTaskDate={setTaskDate}
-            showTaskdateOverlay={showTaskdateOverlay}
-            setShowTaskdateOverlay={setShowTaskdateOverlay}
-          />
+
           <input
             className="add-task__content"
             data-testid="add-task-content"
@@ -161,6 +157,11 @@ export const AddTask = ({
                 onClick={() => setShowTaskdateOverlay(!showTaskdateOverlay)}
               >
                 <FaRegCalendarAlt />
+                <TaskDateOverlay
+                  setTaskDate={setTaskDate}
+                  showTaskdateOverlay={showTaskdateOverlay}
+                  setShowTaskdateOverlay={setShowTaskdateOverlay}
+                />
               </span>
             </div>
           </div>

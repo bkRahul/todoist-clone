@@ -38,7 +38,7 @@ export const Header = ({
           </div>
         </div>
         <div className="logo">
-          <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" width="24" height="24" />
           <p style={logoText}>Todoist Clone</p>
         </div>
         <div className="settings">
